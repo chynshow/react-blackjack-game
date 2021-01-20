@@ -1,0 +1,41 @@
+.c-bet-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+
+  &__input {
+    margin: 1rem 0;
+    border: 0;
+    outline: 0;
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    color: $text-color;
+    font-size: 1.5rem;
+    background: transparent;
+    box-shadow: inset 4px 4px 10px rgba($color: #000000, $alpha: 0.1),
+      inset 8px 8px 10px rgba($color: #000000, $alpha: 0.1);
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    &[type='number'] {
+      -moz-appearance: textfield;
+    }
+    &:disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+
+  &__btn {
+    margin: 0.5rem 0;
+  }
+}

@@ -1,0 +1,44 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: $bg-color;
+  color: $text-color;
+  font-family: 'Roboto', sans-serif;
+}
+
+.c-main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.c-btn {
+  border: 0;
+  outline: 0;
+  padding: 1rem;
+  border-radius: 5px;
+  margin: 0.2rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+  transform: scale(1);
+
+  &:active {
+    transform: translateY(5px);
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:disabled {
+    // background: transparent;
+    opacity: 0.8;
+    pointer-events: none;
+  }
+}
