@@ -14,6 +14,12 @@ import AppReducer, {
   START_ROUND,
   NEW_DEAL,
   SET_SCORE,
+  FINISH_ROUND,
+  RESULT_PUSH,
+  RESULT_PLAYER_WON,
+  RESULT_DEALER_WON,
+  RESET_ROUND,
+  FINISH_GAME,
 } from './AppReducer';
 
 const initState = {
@@ -73,12 +79,18 @@ export const AppProvider = ({ children }) => {
 
   const startGame = () => {
     dispatch({ type: START_GAME });
+    dispatch({ type: GET_STATE });
   };
 
   const resetGame = () => {
     localStorage.removeItem('state');
     dispatch({ type: RESET_GAME });
     getCards();
+  };
+
+  const resetRound = () => {
+    if (state.gameRound > 4) return dispatch({ type: FINISH_GAME });
+    dispatch({ type: RESET_ROUND });
   };
 
   const saveGame = () => {
@@ -99,6 +111,59 @@ export const AppProvider = ({ children }) => {
     dispatch({ type: GET_STATE });
   };
 
+  const getResult = (playerScore, dealerScore) => {
+    if (playerScore === 21) {
+      dispatch({ type: RESULT_PLAYER_WON });
+      dispatch({
+        type: FINISH_ROUND,
+        payload: 'You won! You got Blackjack!',
+      });
+    }
+    if (dealerScore === 21) {
+      dispatch({ type: RESULT_DEALER_WON });
+      dispatch({
+        type: FINISH_ROUND,
+        payload: 'You lose! Dealer got Blackjack',
+      });
+    }
+    if (playerScore > 21) {
+      dispatch({ type: RESULT_DEALER_WON });
+      dispatch({
+        type: FINISH_ROUND,
+        payload: 'You went over 21! The dealer wins!',
+      });
+    }
+    if (dealerScore > 21) {
+      dispatch({ type: RESULT_PLAYER_WON });
+      dispatch({
+        type: FINISH_ROUND,
+        payload: 'Dealer went over 21! The dealer you went!',
+      });
+    }
+    if (state.stand) {
+      if (dealerScore >= 17 && playerScore > dealerScore && playerScore < 21) {
+        dispatch({ type: RESULT_PLAYER_WON });
+        dispatch({
+          type: FINISH_ROUND,
+          payload: 'You win! You beat the dealer!',
+        });
+      }
+      if (dealerScore >= 17 && playerScore < dealerScore && dealerScore < 21) {
+        dispatch({ type: RESULT_DEALER_WON });
+        dispatch({
+          type: FINISH_ROUND,
+          payload: 'You lost. Dealer had the higher score',
+        });
+      }
+    }
+    if (dealerScore >= 17 && playerScore === dealerScore && dealerScore < 21) {
+      dispatch({ type: RESULT_PUSH });
+      dispatch({ type: FINISH_ROUND, payload: 'Draw!' });
+    }
+
+    //  eslint-disable-next-line react-hooks/exhaustive-deps
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -110,6 +175,8 @@ export const AppProvider = ({ children }) => {
         saveGame,
         loadGame,
         setBet,
+        getResult,
+        resetRound,
       }}
     >
       {children}

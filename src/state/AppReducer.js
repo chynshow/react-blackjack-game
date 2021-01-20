@@ -16,8 +16,14 @@ export const LOAD_GAME = 'LOAD_GAME';
 
 export const SET_BET = 'SET_BET';
 export const START_ROUND = 'START_ROUND';
+export const FINISH_ROUND = 'FINISH_ROUND';
+export const RESET_ROUND = 'RESET_ROUND';
 export const NEW_DEAL = 'NEW_DEAL';
 export const SET_SCORE = 'SET_SCORE';
+
+export const RESULT_PUSH = 'RESULT_PUSH';
+export const RESULT_PLAYER_WON = 'RESULT_PLAYER_WON';
+export const RESULT_DEALER_WON = 'RESULT_DEALER_WON';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state, action) => {
@@ -50,11 +56,8 @@ export default (state, action) => {
       return {
         ...state,
         gameStarted: true,
-        showBetInput: true,
       };
     case RESET_GAME:
-      console.clear();
-
       return {
         ...state,
         gameStarted: false,
@@ -114,6 +117,35 @@ export default (state, action) => {
         roundStarted: true,
         gameRound: state.gameRound + 1,
       };
+    case FINISH_ROUND:
+      return {
+        ...state,
+        finishRoundMsg: payload,
+        roundHistory: [
+          {
+            cards: {
+              playerCards: [...state.playerCards],
+              dealerCards: [...state.dealerCards],
+              round: state.gameRound,
+              credit: state.credit,
+              bet: state.bet,
+            },
+          },
+        ],
+        roundStarted: false,
+      };
+    case RESET_ROUND:
+      return {
+        ...state,
+        playerCards: [],
+        dealerCards: [],
+        bet: 0,
+        playerScore: 0,
+        dealerScore: 0,
+        finishRoundMsg: null,
+
+        stand: false,
+      };
     case NEW_DEAL:
       return {
         ...state,
@@ -125,6 +157,22 @@ export default (state, action) => {
         ...state,
         playerScore: getCardsSum(state.playerCards),
         dealerScore: getCardsSum(state.dealerCards),
+      };
+
+    case RESULT_PUSH:
+      return {
+        ...state,
+        bet: state.bet,
+      };
+    case RESULT_PLAYER_WON:
+      return {
+        ...state,
+        credit: state.credit + state.bet * 1.5,
+      };
+    case RESULT_DEALER_WON:
+      return {
+        ...state,
+        credit: state.credit,
       };
 
     case GET_STATE:

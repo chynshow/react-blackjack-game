@@ -1,43 +1,47 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { AppContext } from '../../state/AppContext';
+import InfoModal from '../InfoModal';
 
 const GameResult = () => {
+  const {
+    getResult,
+    resetGame,
+    resetRound,
+    state: {
+      playerScore,
+      dealerScore,
+      roundStarted,
+      finishRoundMsg,
+      gameRound,
+      credit,
+    },
+  } = useContext(AppContext);
+  useEffect(() => {
+    getResult(playerScore, dealerScore);
+
+    //  eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [playerScore, dealerScore]);
+
   return (
     <div className='c-game-result'>
-      <InfoModal
-        btnTitle='New Deal'
-        modalTitle='Round finish!'
-        modalMsg={`Your result 22`}
-        cb={() => console.log('work')}
-      />
+      {finishRoundMsg && !roundStarted && gameRound < 5 && (
+        <InfoModal
+          btnTitle='New Deal'
+          modalTitle='Round finish!'
+          modalMsg={`Your result ${playerScore}`}
+          cb={resetRound}
+        />
+      )}
+      {!roundStarted && gameRound > 4 && (
+        <InfoModal
+          btnTitle='New Game'
+          modalTitle='Game Over!'
+          modalMsg={`Your result ${credit}`}
+          cb={resetGame}
+        />
+      )}
     </div>
   );
 };
 
 export default GameResult;
-
-const InfoModal = ({ btnTitle, cb, modalTitle, modalMsg }) => {
-  const [showModal, setShowModal] = useState(false);
-  const handleOnClick = () => {
-    setShowModal(!showModal);
-    cb();
-  };
-  return (
-    <>
-      <div
-        className={`${
-          showModal ? 'c-info-modal c-info-modal--active' : 'c-info-modal'
-        }`}
-      >
-        <h5 className='c-info-modal__title'>{modalTitle}</h5>
-        <div className='c-info-modal__msg'>{modalMsg}</div>
-        <button
-          className='c-btn c-info-modal__btn'
-          onClick={() => handleOnClick()}
-        >
-          {btnTitle}
-        </button>
-      </div>
-      {showModal && <div className='c-info-modal__overlay' />}
-    </>
-  );
-};
