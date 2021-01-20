@@ -1,4 +1,4 @@
-## Search books 
+## Blackjack
 
 Single page application built on the React.
 
@@ -21,6 +21,8 @@ https://condescending-euler-6ebd1d.netlify.app/
 </div>
 
 ### Technologies
+
+Front-end (hosted by www.netlify.com)
 
 - React
 - SASS
