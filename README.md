@@ -4,8 +4,11 @@ Single page application built on the React.
 
 ## Description
 
+The project is designed to demonstrate knowledge and practical skills about JavaScript framework React, React state management with Context API and React hook useReducer, collaborate with Deck of Cards using Axios, application style with the CSS preprocessor SASS (BEM).
+
 ### Demo
 
+https://condescending-euler-6ebd1d.netlify.app/
 
 #### Screenshots of the app
 
@@ -25,9 +28,7 @@ Single page application built on the React.
 
 #### Backend
 
-- Deck of Cards
-
-### Features
+- Deck of Cards API
 
 
 ## Getting started
