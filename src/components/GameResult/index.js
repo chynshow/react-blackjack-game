@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react';
 import { AppContext } from '../../state/AppContext';
-
 import InfoModal from '../InfoModal';
 
 const GameResult = () => {
@@ -37,7 +36,7 @@ const GameResult = () => {
         showModal={!roundStarted && gameRound > 4}
         btnTitle='New Game'
         modalTitle='Game Over!'
-        modalMsg={`Your result: ${credit}`}
+        modalMsg={`Your result: ${credit}$`}
         cb={resetGame}
       />
     </div>

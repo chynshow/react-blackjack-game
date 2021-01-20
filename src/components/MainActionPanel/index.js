@@ -39,7 +39,6 @@ const MainActionPanel = () => {
           )}
           <button
             className='c-btn c-main-action-panel__btn'
-            // disabled={gameScore.length > 0}
             onClick={() => saveGame()}
           >
             Save Game

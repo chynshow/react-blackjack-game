@@ -13,16 +13,30 @@ import Alert from './components/Alert';
 const App = () => {
   const {
     initApp,
-    state: { bet, roundStarted, gameStarted, loading, deck },
+    // saveGame,
+    state: { bet, roundStarted, gameStarted, loading },
   } = useContext(AppContext);
   useEffect(() => {
     initApp();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // const handleOnClose = (e) => {
+  //   e.preventDefault();
+  //   e.returnValue = '';
+  //   saveGame();
+  // };
+
+  // useEffect(() => {
+  //   window.addEventListener('beforeunload', (e) => handleOnClose(e));
+  //   return () => {
+  //     window.removeEventListener('beforeunload', (e) => handleOnClose(e));
+  //   };
+  // }, []);
+
   return (
     <>
-      {!deck.length && loading ? (
+      {loading ? (
         <Loader />
       ) : (
         <main className='c-main-container'>
@@ -33,7 +47,7 @@ const App = () => {
           {gameStarted && !roundStarted && bet <= 0 && <BetForm />}
           <GameTable />
           <GameResult />
-          {roundStarted && bet && <ActionPanel />}
+          {bet > 0 && <ActionPanel />}
         </main>
       )}
     </>

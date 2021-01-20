@@ -4,7 +4,6 @@ import AppReducer, {
   GET_CARDS_FAIL,
   GET_CARDS_REQUEST,
   GET_CARDS_SUCCESS,
-  GET_STATE,
   SET_STATE,
   RESET_GAME,
   START_GAME,
@@ -27,12 +26,13 @@ import AppReducer, {
   SET_DEALER_SCORE,
   SHOW_ALERT,
   HIDE_ALERT,
+  GET_STATE,
 } from './AppReducer';
 
 const initState = {
   gameStarted: false,
   roundStarted: false,
-  gameRound: 4,
+  gameRound: 0,
   gameScore: [],
   deck: [],
   playerCards: [],
@@ -44,7 +44,7 @@ const initState = {
   gameHistory: [],
   roundHistory: [],
   finishRoundMsg: null,
-  gameSave: {},
+  gameSave: null,
   stand: false,
   loading: false,
   alert: { msg: null, state: null },
@@ -89,18 +89,16 @@ export const AppProvider = ({ children }) => {
   };
 
   const initApp = () => {
-    // if (localStorage.state)
+    // if (localStorage.state) {
     //   return dispatch({
     //     type: SET_STATE,
     //     payload: JSON.parse(localStorage.state),
     //   });
+    // }
     getCards();
   };
 
-  const startGame = () => {
-    dispatch({ type: START_GAME });
-    dispatch({ type: GET_STATE });
-  };
+  const startGame = () => dispatch({ type: START_GAME });
 
   const resetGame = () => {
     localStorage.removeItem('state');
@@ -129,7 +127,6 @@ export const AppProvider = ({ children }) => {
     dispatch({ type: START_ROUND });
     dispatch({ type: NEW_DEAL });
     dispatch({ type: SET_SCORE });
-    dispatch({ type: GET_STATE });
   };
 
   const getResult = (playerScore, dealerScore) => {
@@ -181,20 +178,16 @@ export const AppProvider = ({ children }) => {
       dispatch({ type: RESULT_PUSH });
       dispatch({ type: FINISH_ROUND, payload: 'Draw!' });
     }
-    dispatch({ type: GET_STATE });
-    //  eslint-disable-next-line react-hooks/exhaustive-deps
   };
 
   const hit = () => {
     dispatch({ type: HIT });
     dispatch({ type: SET_PLAYER_SCORE });
-    dispatch({ type: GET_STATE });
   };
 
   const stand = () => {
     dispatch({ type: STAND });
     dispatch({ type: SET_DEALER_SCORE });
-    dispatch({ type: GET_STATE });
   };
 
   const doubleDown = () => {

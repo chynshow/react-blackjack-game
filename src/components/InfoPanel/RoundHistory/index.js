@@ -11,7 +11,9 @@ const RoundHistory = ({ roundHistory }) => {
           <div className='c-round-history__credit'>Credit: {item.credit}$</div>
           <div className='c-round-history__bet'>Bet: {item.bet}$</div>
           <div className='c-round-history__cards'>
-            <span className='c-round-history__dealer-cards'>Dealer Cards:</span>
+            <span className='c-round-history__dealer-cards'>
+              Dealer: {item.score?.dealerScore}
+            </span>
             {item.cards?.dealerCards.map((card) => (
               <img
                 className='c-round-history__img'
@@ -20,7 +22,10 @@ const RoundHistory = ({ roundHistory }) => {
                 alt={card.code}
               />
             ))}
-            <span className='c-round-history__player-cards'>Player Cards:</span>
+
+            <span className='c-round-history__player-cards'>
+              Player: {item.score?.playerScore}
+            </span>
             {item.cards?.playerCards.map((card) => (
               <img
                 className='c-round-history__img'

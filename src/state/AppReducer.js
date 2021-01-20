@@ -37,7 +37,7 @@ export const HIDE_ALERT = 'HIDE_ALERT';
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state, action) => {
   const { type, payload } = action;
-  localStorage.setItem('state', JSON.stringify(state));
+  // localStorage.setItem('state', JSON.stringify(state));
   switch (type) {
     case SET_STATE:
       return {
@@ -137,6 +137,10 @@ export default (state, action) => {
               playerCards: [...state.playerCards],
               dealerCards: [...state.dealerCards],
             },
+            score: {
+              playerScore: state.playerScore,
+              dealerScore: state.dealerScore,
+            },
             round: state.gameRound,
             credit: state.credit,
             bet: state.bet,
@@ -171,7 +175,7 @@ export default (state, action) => {
     case RESULT_PUSH:
       return {
         ...state,
-        bet: state.bet,
+        credit: state.credit,
       };
     case RESULT_PLAYER_WON:
       return {
