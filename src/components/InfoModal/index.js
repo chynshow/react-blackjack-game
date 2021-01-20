@@ -1,11 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const InfoModal = ({ btnTitle, cb, modalTitle, modalMsg }) => {
-  const [showModal, setShowModal] = useState(false);
-  const handleOnClick = () => {
-    setShowModal(!showModal);
-    cb();
-  };
+const InfoModal = ({ btnTitle, cb, modalTitle, modalMsg, showModal }) => {
   return (
     <>
       <div
@@ -15,10 +10,7 @@ const InfoModal = ({ btnTitle, cb, modalTitle, modalMsg }) => {
       >
         <h5 className='c-info-modal__title'>{modalTitle}</h5>
         <div className='c-info-modal__msg'>{modalMsg}</div>
-        <button
-          className='c-btn c-info-modal__btn'
-          onClick={() => handleOnClick()}
-        >
+        <button className='c-btn c-info-modal__btn' onClick={() => cb()}>
           {btnTitle}
         </button>
       </div>

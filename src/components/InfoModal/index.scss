@@ -2,9 +2,9 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
-  width: 50vw;
-  height: 50vw;
+  transform: translate(-50%, -50%) scale(0);
+  width: 40vw;
+  height: 40vw;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -13,7 +13,6 @@
   color: #333;
   background: #fafafa;
   transition: 0.2s ease-in-out;
-  transform: scale(0);
   visibility: hidden;
   z-index: 2;
 
@@ -23,6 +22,9 @@
   }
 
   &__msg {
+    max-width: 25vw;
+    text-align: center;
+    line-height: 2;
   }
 
   &__btn {
@@ -31,7 +33,7 @@
   }
 
   &__overlay {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -42,7 +44,7 @@
   }
 
   &--active {
-    transform: scale(1);
+    transform: translate(-50%, -50%) scale(1);
     visibility: visible;
   }
 }

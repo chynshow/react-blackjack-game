@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../../state/AppContext';
+import RoundHistory from './RoundHistory';
 
 const InfoPanel = () => {
   const {
@@ -16,12 +17,6 @@ const InfoPanel = () => {
 };
 
 export default InfoPanel;
-
-const RoundHistory = ({ roundHistory }) => {
-  return (
-    <div className='c-info-panel__item c-round-history'>{roundHistory}</div>
-  );
-};
 
 const PlayerCredit = ({ credit }) => {
   return (

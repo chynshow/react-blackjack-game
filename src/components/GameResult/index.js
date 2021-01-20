@@ -1,12 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import { AppContext } from '../../state/AppContext';
+
 import InfoModal from '../InfoModal';
 
 const GameResult = () => {
   const {
     getResult,
-    resetGame,
     resetRound,
+    resetGame,
     state: {
       playerScore,
       dealerScore,
@@ -24,22 +25,21 @@ const GameResult = () => {
 
   return (
     <div className='c-game-result'>
-      {finishRoundMsg && !roundStarted && gameRound < 5 && (
-        <InfoModal
-          btnTitle='New Deal'
-          modalTitle='Round finish!'
-          modalMsg={`Your result ${playerScore}`}
-          cb={resetRound}
-        />
-      )}
-      {!roundStarted && gameRound > 4 && (
-        <InfoModal
-          btnTitle='New Game'
-          modalTitle='Game Over!'
-          modalMsg={`Your result ${credit}`}
-          cb={resetGame}
-        />
-      )}
+      <InfoModal
+        showModal={finishRoundMsg && gameRound <= 5}
+        btnTitle='New Deal'
+        modalTitle='Round finish!'
+        modalMsg={finishRoundMsg}
+        cb={resetRound}
+      />
+
+      <InfoModal
+        showModal={!roundStarted && gameRound > 4}
+        btnTitle='New Game'
+        modalTitle='Game Over!'
+        modalMsg={`Your result: ${credit}`}
+        cb={resetGame}
+      />
     </div>
   );
 };

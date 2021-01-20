@@ -8,6 +8,7 @@ import GameResult from './components/GameResult';
 import { AppContext } from './state/AppContext';
 import BetForm from './components/BetForm';
 import Loader from './components/Loader';
+import Alert from './components/Alert';
 
 const App = () => {
   const {
@@ -21,14 +22,15 @@ const App = () => {
   }, []);
   return (
     <>
-      {loading ? (
+      {!deck.length && loading ? (
         <Loader />
       ) : (
         <main className='c-main-container'>
+          <Alert />
           <GameTitle />
           <MainActionPanel />
           {gameStarted && <InfoPanel />}
-          <BetForm />
+          {gameStarted && !roundStarted && bet <= 0 && <BetForm />}
           <GameTable />
           <GameResult />
           {roundStarted && bet && <ActionPanel />}

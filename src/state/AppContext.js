@@ -20,12 +20,19 @@ import AppReducer, {
   RESULT_DEALER_WON,
   RESET_ROUND,
   FINISH_GAME,
+  HIT,
+  STAND,
+  DOUBLE_DOWN,
+  SET_PLAYER_SCORE,
+  SET_DEALER_SCORE,
+  SHOW_ALERT,
+  HIDE_ALERT,
 } from './AppReducer';
 
 const initState = {
   gameStarted: false,
   roundStarted: false,
-  gameRound: 0,
+  gameRound: 4,
   gameScore: [],
   deck: [],
   playerCards: [],
@@ -40,12 +47,19 @@ const initState = {
   gameSave: {},
   stand: false,
   loading: false,
+  alert: { msg: null, state: null },
 };
 
 export const AppContext = createContext(initState);
 
 export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initState);
+  const showAlert = (msg, state, time = 2000) => {
+    dispatch({ type: SHOW_ALERT, payload: { msg, state } });
+    setTimeout(() => {
+      dispatch({ type: HIDE_ALERT });
+    }, time);
+  };
 
   const getCards = async (deck = 6) => {
     dispatch({ type: GET_CARDS_REQUEST });
@@ -54,13 +68,19 @@ export const AppProvider = ({ children }) => {
         `https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=${deck}`
       );
 
-      if (response1.status !== 200) return dispatch({ type: GET_CARDS_FAIL });
+      if (response1.status !== 200) {
+        dispatch({ type: GET_CARDS_FAIL });
+        return showAlert('Server Error!', 'warn');
+      }
 
       const response2 = await Axios.get(
         `https://deckofcardsapi.com/api/deck/${response1.data.deck_id}/draw/?count=${response1.data.remaining}`
       );
 
-      if (response2.status !== 200) return dispatch({ type: GET_CARDS_FAIL });
+      if (response2.status !== 200) {
+        dispatch({ type: GET_CARDS_FAIL });
+        return showAlert('Server Error!', 'warn');
+      }
 
       dispatch({ type: GET_CARDS_SUCCESS, payload: response2.data.cards });
     } catch (error) {
@@ -69,11 +89,11 @@ export const AppProvider = ({ children }) => {
   };
 
   const initApp = () => {
-    if (localStorage.state)
-      return dispatch({
-        type: SET_STATE,
-        payload: JSON.parse(localStorage.state),
-      });
+    // if (localStorage.state)
+    //   return dispatch({
+    //     type: SET_STATE,
+    //     payload: JSON.parse(localStorage.state),
+    //   });
     getCards();
   };
 
@@ -89,18 +109,19 @@ export const AppProvider = ({ children }) => {
   };
 
   const resetRound = () => {
-    if (state.gameRound > 4) return dispatch({ type: FINISH_GAME });
+    if (state.gameRound > 4 || state.credit <= 0)
+      return dispatch({ type: FINISH_GAME });
     dispatch({ type: RESET_ROUND });
   };
 
   const saveGame = () => {
     dispatch({ type: SAVE_GAME });
-    console.log('Message Game was save!');
+    showAlert('Game was save!', 'success');
   };
 
   const loadGame = () => {
     dispatch({ type: LOAD_GAME });
-    console.log('Message: Game was load!');
+    showAlert('Game was load!', 'success');
   };
 
   const setBet = (bet) => {
@@ -160,8 +181,25 @@ export const AppProvider = ({ children }) => {
       dispatch({ type: RESULT_PUSH });
       dispatch({ type: FINISH_ROUND, payload: 'Draw!' });
     }
-
+    dispatch({ type: GET_STATE });
     //  eslint-disable-next-line react-hooks/exhaustive-deps
+  };
+
+  const hit = () => {
+    dispatch({ type: HIT });
+    dispatch({ type: SET_PLAYER_SCORE });
+    dispatch({ type: GET_STATE });
+  };
+
+  const stand = () => {
+    dispatch({ type: STAND });
+    dispatch({ type: SET_DEALER_SCORE });
+    dispatch({ type: GET_STATE });
+  };
+
+  const doubleDown = () => {
+    dispatch({ type: DOUBLE_DOWN });
+    dispatch({ type: SET_PLAYER_SCORE });
   };
 
   return (
@@ -177,6 +215,10 @@ export const AppProvider = ({ children }) => {
         setBet,
         getResult,
         resetRound,
+        hit,
+        stand,
+        doubleDown,
+        dispatch,
       }}
     >
       {children}

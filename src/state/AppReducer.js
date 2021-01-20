@@ -25,6 +25,15 @@ export const RESULT_PUSH = 'RESULT_PUSH';
 export const RESULT_PLAYER_WON = 'RESULT_PLAYER_WON';
 export const RESULT_DEALER_WON = 'RESULT_DEALER_WON';
 
+export const HIT = 'HIT';
+export const STAND = 'STAND';
+export const DOUBLE_DOWN = 'DOUBLE_DOWN';
+export const SET_DEALER_SCORE = 'SET_DEALER_SCORE';
+export const SET_PLAYER_SCORE = 'SET_PLAYER_SCORE';
+
+export const SHOW_ALERT = 'SHOW_ALERT';
+export const HIDE_ALERT = 'HIDE_ALERT';
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state, action) => {
   const { type, payload } = action;
@@ -122,14 +131,15 @@ export default (state, action) => {
         ...state,
         finishRoundMsg: payload,
         roundHistory: [
+          ...state.roundHistory,
           {
             cards: {
               playerCards: [...state.playerCards],
               dealerCards: [...state.dealerCards],
-              round: state.gameRound,
-              credit: state.credit,
-              bet: state.bet,
             },
+            round: state.gameRound,
+            credit: state.credit,
+            bet: state.bet,
           },
         ],
         roundStarted: false,
@@ -143,7 +153,6 @@ export default (state, action) => {
         playerScore: 0,
         dealerScore: 0,
         finishRoundMsg: null,
-
         stand: false,
       };
     case NEW_DEAL:
@@ -173,6 +182,47 @@ export default (state, action) => {
       return {
         ...state,
         credit: state.credit,
+      };
+
+    case HIT:
+      return {
+        ...state,
+        playerCards: [...state.playerCards, ...getCards(state.deck, 1)],
+      };
+    case STAND:
+      return {
+        ...state,
+        dealerCards: [...state.dealerCards, ...getCards(state.deck, 1)],
+        stand: true,
+      };
+    case DOUBLE_DOWN:
+      return {
+        ...state,
+        bet: state.bet * 2,
+        credit: state.credit - state.bet * 2,
+        playerCards: [...state.playerCards, ...getCards(state.deck, 1)],
+        stand: true,
+      };
+    case SET_PLAYER_SCORE:
+      return {
+        ...state,
+        playerScore: getCardsSum(state.playerCards),
+      };
+    case SET_DEALER_SCORE:
+      return {
+        ...state,
+        dealerScore: getCardsSum(state.dealerCards),
+      };
+
+    case SHOW_ALERT:
+      return {
+        ...state,
+        alert: { msg: payload.msg, state: payload.state },
+      };
+    case HIDE_ALERT:
+      return {
+        ...state,
+        alert: { msg: null, state: null },
       };
 
     case GET_STATE:

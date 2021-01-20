@@ -4,10 +4,12 @@
 
 // Components
 @import './components/MainActionPanel/index.scss';
+@import './components/Alert/index.scss';
 @import './components/GameTitle/index.scss';
 @import './components/Loader/index.scss';
 @import './components/InfoModal/index.scss';
 @import './components/InfoPanel/index.scss';
+@import './components/InfoPanel/RoundHistory/index.scss';
 @import './components/BetForm/index.scss';
 @import './components/GameTable/index.scss';
 @import './components/GameTable/Cards/index.scss';

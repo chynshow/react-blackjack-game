@@ -7,22 +7,15 @@ const BetForm = () => {
     setBet,
   } = useContext(AppContext);
   const [value, setValue] = useState(0);
-  const [showBet, setShowBet] = useState(true);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
     if (gameStarted && (!value || value > credit))
       return console.error('Invalid bet error message!');
     setBet(value);
-    setShowBet(false);
   };
   return (
-    <form
-      className={`${
-        gameStarted && showBet ? 'c-bet-form c-bet-form--active' : 'c-bet-form'
-      }`}
-      onSubmit={(e) => handleOnSubmit(e)}
-    >
+    <form className='c-bet-form' onSubmit={(e) => handleOnSubmit(e)}>
       <input
         className='c-bet-form__input'
         value={value}

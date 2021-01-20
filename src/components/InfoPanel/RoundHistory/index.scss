@@ -1,0 +1,22 @@
+.c-round-history {
+  position: fixed;
+  left: 0%;
+  &__item {
+    margin: 0.5rem;
+  }
+
+  &__dealer-cards {
+    margin-right: 0.5rem;
+  }
+  &__player-cards {
+    margin: 0.5rem;
+  }
+
+  &__img {
+    width: 1rem;
+    transition: 0.2s ease-in-out;
+    &:hover {
+      width: 3rem;
+    }
+  }
+}
