@@ -1,43 +1,59 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AppContext } from '../../state/AppContext';
 
 const MainActionPanel = () => {
+  const {
+    startGame,
+    resetGame,
+    saveGame,
+    loadGame,
+    state: { gameStarted, gameSave, gameScore },
+  } = useContext(AppContext);
   return (
     <div className='c-main-action-panel'>
-      <button
-        className='c-btn c-main-action-panel__btn'
-        // disabled={gameStarted}
-        // onClick={() => startGame()}
-      >
-        Start Game
-      </button>
-      <button
-        className='c-btn c-main-action-panel__btn'
-        // disabled={!gameStarted}
-        // onClick={() => resetGame()}
-      >
-        Reset Game
-      </button>
-      <button
-        className='c-btn c-main-action-panel__btn'
-        // disabled={!gameStarted}
-        // onClick={() => resetGame()}
-      >
-        Score
-      </button>
-      <button
-        className='c-btn c-main-action-panel__btn'
-        // disabled={!gameStarted}
-        // onClick={() => saveGame()}
-      >
-        Save Game
-      </button>
-      <button
-        className='c-btn c-main-action-panel__btn'
-        // disabled={!saveGames.length > 0}
-        // onClick={() => loadGame()}
-      >
-        Load Game
-      </button>
+      {!gameStarted && (
+        <button
+          className='c-btn c-main-action-panel__btn'
+          onClick={() => startGame()}
+        >
+          Start Game
+        </button>
+      )}
+      {gameStarted && (
+        <>
+          <button
+            className='c-btn c-main-action-panel__btn'
+            disabled={!gameStarted}
+            onClick={() => resetGame()}
+          >
+            Reset Game
+          </button>
+          {!gameScore.length <= 0 && (
+            <button
+              className='c-btn c-main-action-panel__btn'
+              disabled={gameScore.length <= 0}
+              // onClick={() => showGameScore()}
+            >
+              Score
+            </button>
+          )}
+          <button
+            className='c-btn c-main-action-panel__btn'
+            // disabled={gameScore.length > 0}
+            onClick={() => saveGame()}
+          >
+            Save Game
+          </button>
+          {gameSave && (
+            <button
+              className='c-btn c-main-action-panel__btn'
+              onClick={() => loadGame()}
+            >
+              Load Game
+            </button>
+          )}
+        </>
+      )}
     </div>
   );
 };

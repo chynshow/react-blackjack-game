@@ -7,7 +7,7 @@
 body {
   background: $bg-color;
   color: $text-color;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .c-main-container {
@@ -23,6 +23,7 @@ body {
   outline: 0;
   padding: 1rem;
   border-radius: 5px;
+  font-family: inherit;
   margin: 0.2rem;
   cursor: pointer;
   transition: 0.2s ease;
