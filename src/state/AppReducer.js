@@ -1,3 +1,6 @@
+import getCards from '../helpers/getCards';
+import getCardsSum from '../helpers/getCardsSum';
+
 export const GET_STATE = 'GET_STATE';
 
 export const SET_STATE = 'SET_STATE';
@@ -10,6 +13,11 @@ export const RESET_GAME = 'RESET_GAME';
 export const FINISH_GAME = 'FINISH_GAME';
 export const SAVE_GAME = 'SAVE_GAME';
 export const LOAD_GAME = 'LOAD_GAME';
+
+export const SET_BET = 'SET_BET';
+export const START_ROUND = 'START_ROUND';
+export const NEW_DEAL = 'NEW_DEAL';
+export const SET_SCORE = 'SET_SCORE';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state, action) => {
@@ -46,11 +54,11 @@ export default (state, action) => {
       };
     case RESET_GAME:
       console.clear();
+
       return {
         ...state,
         gameStarted: false,
         roundStarted: false,
-        showBetInput: false,
         gameRound: 0,
         deck: [],
         playerCards: [],
@@ -91,6 +99,32 @@ export default (state, action) => {
         roundHistory: state.gameSave.roundHistory,
         loading: state.gameSave.loading,
         gameSave: { ...state.gameSave },
+      };
+
+    case SET_BET:
+      return {
+        ...state,
+        credit: state.credit - payload,
+        bet: state.bet + payload,
+        showBetInput: false,
+      };
+    case START_ROUND:
+      return {
+        ...state,
+        roundStarted: true,
+        gameRound: state.gameRound + 1,
+      };
+    case NEW_DEAL:
+      return {
+        ...state,
+        playerCards: [...state.playerCards, ...getCards(state.deck, 2)],
+        dealerCards: [...state.dealerCards, ...getCards(state.deck, 2)],
+      };
+    case SET_SCORE:
+      return {
+        ...state,
+        playerScore: getCardsSum(state.playerCards),
+        dealerScore: getCardsSum(state.dealerCards),
       };
 
     case GET_STATE:

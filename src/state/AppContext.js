@@ -10,6 +10,10 @@ import AppReducer, {
   START_GAME,
   SAVE_GAME,
   LOAD_GAME,
+  SET_BET,
+  START_ROUND,
+  NEW_DEAL,
+  SET_SCORE,
 } from './AppReducer';
 
 const initState = {
@@ -24,7 +28,6 @@ const initState = {
   playerScore: 0,
   dealerScore: 0,
   bet: 0,
-  showBetInput: false,
   gameHistory: [],
   roundHistory: [],
   finishRoundMsg: null,
@@ -70,10 +73,10 @@ export const AppProvider = ({ children }) => {
 
   const startGame = () => {
     dispatch({ type: START_GAME });
-    dispatch({ type: GET_STATE });
   };
 
   const resetGame = () => {
+    localStorage.removeItem('state');
     dispatch({ type: RESET_GAME });
     getCards();
   };
@@ -88,6 +91,14 @@ export const AppProvider = ({ children }) => {
     console.log('Message: Game was load!');
   };
 
+  const setBet = (bet) => {
+    dispatch({ type: SET_BET, payload: bet });
+    dispatch({ type: START_ROUND });
+    dispatch({ type: NEW_DEAL });
+    dispatch({ type: SET_SCORE });
+    dispatch({ type: GET_STATE });
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -98,6 +109,7 @@ export const AppProvider = ({ children }) => {
         resetGame,
         saveGame,
         loadGame,
+        setBet,
       }}
     >
       {children}

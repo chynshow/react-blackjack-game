@@ -3,9 +3,15 @@ import React from 'react';
 const Cards = ({ cards, ownerName, ownerScore }) => {
   return (
     <div className='c-cards'>
-      <h5 className='c-cards__owner'>{ownerName}</h5>
-      <div className='c-cards__owner-score'>{ownerScore}</div>
-      {/* <Card /> */}
+      <h3 className='c-cards__owner-name'>
+        {ownerName} <span className='c-cards__owner-score'>{ownerScore}</span>
+      </h3>
+
+      <div className='c-cards__container'>
+        {cards.map((card) => (
+          <Card key={card.code} card={card} />
+        ))}
+      </div>
     </div>
   );
 };

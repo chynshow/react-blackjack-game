@@ -28,7 +28,7 @@ const App = () => {
           <GameTitle />
           <MainActionPanel />
           {gameStarted && <InfoPanel />}
-          {gameStarted && <BetForm />}
+          <BetForm />
           <GameTable />
           <GameResult />
           {roundStarted && bet && <ActionPanel />}

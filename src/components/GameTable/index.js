@@ -1,11 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AppContext } from '../../state/AppContext';
 import Cards from './Cards';
 
 const GameTable = () => {
+  const {
+    state: { playerCards, dealerCards, playerScore, dealerScore },
+  } = useContext(AppContext);
   return (
-    <div className='c-game-table'>
-      <Cards />
-    </div>
+    <>
+      {playerCards.length > 0 && dealerCards.length > 0 && (
+        <div className='c-game-table'>
+          <Cards
+            cards={dealerCards}
+            ownerName='Dealer'
+            ownerScore={dealerScore}
+          />
+          <Cards
+            cards={playerCards}
+            ownerName='Player'
+            ownerScore={playerScore}
+          />
+        </div>
+      )}
+    </>
   );
 };
 

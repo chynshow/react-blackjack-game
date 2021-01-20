@@ -1,5 +1,36 @@
 .c-cards {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__owner-name {
+    padding: 0.5rem;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+  }
+
+  &__owner-score {
+    margin-left: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: $text-color;
+    color: $bg-color;
+  }
+  &__container {
+    display: flex;
+  }
 }
 
 .c-card {
+  &__img {
+    // filter: grayscale(100%);
+    margin: 0.5rem;
+    width: 5rem;
+  }
 }
