@@ -10,7 +10,7 @@ const GameResult = () => {
     state: {
       playerScore,
       dealerScore,
-      roundStarted,
+      gameStarted,
       finishRoundMsg,
       gameRound,
       credit,
@@ -33,7 +33,7 @@ const GameResult = () => {
       />
 
       <InfoModal
-        showModal={!roundStarted && gameRound > 4}
+        showModal={!gameStarted && gameRound > 4}
         btnTitle='New Game'
         modalTitle='Game Over!'
         modalMsg={`Your result: ${credit}$`}

@@ -41,4 +41,4 @@ const RoundHistory = ({ roundHistory }) => {
   );
 };
 
-export default RoundHistory;
+export default React.memo(RoundHistory);

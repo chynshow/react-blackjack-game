@@ -40,7 +40,6 @@ const initState = {
   playerScore: 0,
   dealerScore: 0,
   bet: 0,
-  gameHistory: [],
   roundHistory: [],
   finishRoundMsg: null,
   gameSave: null,
@@ -100,14 +99,15 @@ export const AppProvider = ({ children }) => {
   const startGame = () => dispatch({ type: START_GAME });
 
   const resetGame = () => {
-    localStorage.removeItem('state');
     dispatch({ type: RESET_GAME });
     getCards();
   };
 
   const resetRound = () => {
-    if (state.gameRound > 4 || state.credit <= 0)
+    if (state.gameRound > 4 || state.credit <= 0) {
       return dispatch({ type: FINISH_GAME });
+    }
+
     dispatch({ type: RESET_ROUND });
   };
 

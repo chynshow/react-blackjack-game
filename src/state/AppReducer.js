@@ -2,7 +2,6 @@ import getCards from '../helpers/getCards';
 import getCardsSum from '../helpers/getCardsSum';
 
 export const GET_STATE = 'GET_STATE';
-
 export const GET_CARDS_REQUEST = 'GET_CARDS_REQUEST';
 export const GET_CARDS_SUCCESS = 'GET_CARDS_SUCCESS';
 export const GET_CARDS_FAIL = 'GET_CARDS_FAIL';
@@ -81,7 +80,7 @@ export default (state, action) => {
     case FINISH_GAME:
       return {
         ...state,
-        gameHistory: [...state.gameHistory, { score: state.credit }],
+        gameScore: [...state.gameScore, { score: state.credit }],
         gameStarted: false,
       };
     case SAVE_GAME:
