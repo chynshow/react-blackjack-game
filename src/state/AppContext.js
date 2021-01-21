@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { createContext, useReducer } from 'react';
+import { createContext, useEffect, useReducer } from 'react';
 import AppReducer, {
   GET_CARDS_FAIL,
   GET_CARDS_REQUEST,
@@ -26,7 +26,6 @@ import AppReducer, {
   SET_DEALER_SCORE,
   SHOW_ALERT,
   HIDE_ALERT,
-  GET_STATE,
 } from './AppReducer';
 
 const initState = {
@@ -52,8 +51,16 @@ const initState = {
 
 export const AppContext = createContext(initState);
 
+const init = (initValue = initState) =>
+  JSON.parse(localStorage.getItem('state')) || initValue;
+
 export const AppProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(AppReducer, initState);
+  const [state, dispatch] = useReducer(AppReducer, initState, init);
+
+  useEffect(() => {
+    localStorage.setItem('state', JSON.stringify(state));
+  }, [state]);
+
   const showAlert = (msg, state, time = 2000) => {
     dispatch({ type: SHOW_ALERT, payload: { msg, state } });
     setTimeout(() => {
@@ -88,15 +95,7 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  const initApp = () => {
-    // if (localStorage.state) {
-    //   return dispatch({
-    //     type: SET_STATE,
-    //     payload: JSON.parse(localStorage.state),
-    //   });
-    // }
-    getCards();
-  };
+  const initApp = () => getCards();
 
   const startGame = () => dispatch({ type: START_GAME });
 

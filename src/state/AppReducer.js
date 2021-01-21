@@ -3,7 +3,6 @@ import getCardsSum from '../helpers/getCardsSum';
 
 export const GET_STATE = 'GET_STATE';
 
-export const SET_STATE = 'SET_STATE';
 export const GET_CARDS_REQUEST = 'GET_CARDS_REQUEST';
 export const GET_CARDS_SUCCESS = 'GET_CARDS_SUCCESS';
 export const GET_CARDS_FAIL = 'GET_CARDS_FAIL';
@@ -37,12 +36,7 @@ export const HIDE_ALERT = 'HIDE_ALERT';
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state, action) => {
   const { type, payload } = action;
-  // localStorage.setItem('state', JSON.stringify(state));
   switch (type) {
-    case SET_STATE:
-      return {
-        ...payload,
-      };
     case GET_CARDS_REQUEST:
       return {
         ...state,
