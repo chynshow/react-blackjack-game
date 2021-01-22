@@ -330,6 +330,8 @@ export const AppProvider = ({ children }) => {
         infoModal: state.infoModal,
         playerBet: state.bet,
         roundStarted: state.roundStarted,
+        gameRound: state.gameRound,
+        roundHistory: state.roundHistory,
       }}
     >
       {children}
