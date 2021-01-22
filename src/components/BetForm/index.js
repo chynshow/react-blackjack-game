@@ -3,21 +3,19 @@ import { AppContext } from '../../state/AppContext';
 import { SHOW_INFO_MODAL } from '../../state/AppReducer';
 
 const BetForm = () => {
-  const {
-    state: { credit, gameStarted },
-    setBet,
-    dispatch,
-  } = useContext(AppContext);
+  const { setBet, dispatch, playerCredit, gameStarted } = useContext(
+    AppContext
+  );
   const [value, setValue] = useState(0);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    if (gameStarted && (!value || value > credit))
+    if (gameStarted && (!value || value > playerCredit))
       return dispatch({
         type: SHOW_INFO_MODAL,
         payload: {
           title: 'Please set a correct bet!',
-          msg: `Bet should be more then zero and less then ${credit}$`,
+          msg: `Bet should be more then zero and less then ${playerCredit}$`,
           closeBtnTitle: 'Back to game!',
         },
       });

@@ -4,7 +4,11 @@ import Cards from './Cards';
 
 const GameTable = () => {
   const {
-    state: { playerCards, dealerCards, playerScore, dealerScore, stand },
+    playerCards,
+    dealerCards,
+    playerScore,
+    dealerScore,
+    stand,
   } = useContext(AppContext);
   return (
     <>

@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render InfoModal component 1`] = `
+<Fragment>
+  <div
+    className="c-info-modal"
+  >
+    <h5
+      className="c-info-modal__title"
+    />
+    <div
+      className="c-info-modal__msg"
+    />
+    <button
+      className="c-btn c-info-modal__btn"
+      onClick={[Function]}
+    />
+  </div>
+</Fragment>
+`;

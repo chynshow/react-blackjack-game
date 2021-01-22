@@ -317,6 +317,18 @@ export const AppProvider = ({ children }) => {
         doubleDownAction,
         dispatch,
         showGameScore,
+        stand: state.stand,
+        playerCredit: state.credit,
+        gameStarted: state.gameStarted,
+        gameSave: state.gameSave,
+        playerCards: state.playerCards,
+        dealerCards: state.dealerCards,
+        playerScore: state.playerScore,
+        dealerScore: state.dealerScore,
+        gameScore: state.gameScore,
+        infoModal: state.infoModal,
+        playerBet: state.bet,
+        roundStarted: state.roundStarted,
       }}
     >
       {children}

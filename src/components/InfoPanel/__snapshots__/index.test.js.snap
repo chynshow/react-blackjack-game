@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render InfoPanel component 1`] = `
+<div
+  className="c-info-panel"
+>
+  <Memo(PlayerCredit)
+    className="c-info-panel__item c-player-credit"
+  />
+  <Memo(PlayerBet)
+    className="c-info-panel__item c-player-bet"
+  />
+</div>
+`;

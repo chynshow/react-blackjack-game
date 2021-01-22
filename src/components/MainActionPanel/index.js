@@ -8,7 +8,9 @@ const MainActionPanel = () => {
     saveGame,
     loadGame,
     showGameScore,
-    state: { gameStarted, gameSave, gameScore },
+    gameStarted,
+    gameSave,
+    gameScore,
   } = useContext(AppContext);
 
   return (

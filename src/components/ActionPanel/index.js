@@ -2,12 +2,9 @@ import React, { useContext } from 'react';
 import { AppContext } from '../../state/AppContext';
 
 const ActionPanel = () => {
-  const {
-    hitAction,
-    doubleDownAction,
-    standAction,
-    state: { stand },
-  } = useContext(AppContext);
+  const { hitAction, doubleDownAction, standAction, stand } = useContext(
+    AppContext
+  );
 
   return (
     <div className='c-action-panel'>

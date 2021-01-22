@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render ActionPanel component 1`] = `
+<div
+  className="c-action-panel"
+>
+  <button
+    className="c-btn c-action-panel__btn"
+    disabled={false}
+    onClick={[Function]}
+  >
+    Hit
+  </button>
+  <button
+    className="c-btn c-action-panel__btn"
+    onClick={[Function]}
+  >
+    Stand
+  </button>
+  <button
+    className="c-btn c-action-panel__btn"
+    disabled={false}
+    onClick={[Function]}
+  >
+    Double Down
+  </button>
+</div>
+`;

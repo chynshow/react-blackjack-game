@@ -5,16 +5,16 @@ import PlayerBet from './PlayerBet/index';
 import NumberOfRound from './NumberOfRound';
 
 const InfoPanel = () => {
-  const {
-    state: { credit, bet, gameRound, roundStarted },
-  } = useContext(AppContext);
+  const { playerCredit, playerBet, gameRound, roundStarted } = useContext(
+    AppContext
+  );
   return (
     <div className='c-info-panel'>
       <PlayerCredit
-        credit={credit}
+        credit={playerCredit}
         className='c-info-panel__item c-player-credit'
       />
-      <PlayerBet bet={bet} className='c-info-panel__item c-player-bet' />
+      <PlayerBet bet={playerBet} className='c-info-panel__item c-player-bet' />
       {roundStarted && (
         <NumberOfRound
           gameRound={gameRound}

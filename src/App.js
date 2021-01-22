@@ -13,7 +13,7 @@ import RoundHistory from './components/InfoPanel/RoundHistory';
 const App = () => {
   const {
     initApp,
-    // saveGame,
+    saveGame,
     state: { bet, roundStarted, gameStarted, loading, roundHistory },
   } = useContext(AppContext);
   useEffect(() => {
@@ -21,18 +21,19 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // const handleOnClose = (e) => {
-  //   e.preventDefault();
-  //   e.returnValue = '';
-  //   saveGame();
-  // };
+  const handleOnClose = (e) => {
+    e.preventDefault();
+    e.returnValue = '';
+    saveGame();
+  };
 
-  // useEffect(() => {
-  //   window.addEventListener('beforeunload', (e) => handleOnClose(e));
-  //   return () => {
-  //     window.removeEventListener('beforeunload', (e) => handleOnClose(e));
-  //   };
-  // }, []);
+  useEffect(() => {
+    window.addEventListener('beforeunload', (e) => handleOnClose(e));
+    return () => {
+      window.removeEventListener('beforeunload', (e) => handleOnClose(e));
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>

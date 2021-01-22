@@ -7,10 +7,10 @@ import PlayerBet from './../PlayerBet';
 const RoundHistory = ({ roundHistory }) => {
   return (
     <>
-      {roundHistory.length > 0 && (
+      {roundHistory?.length > 0 && (
         <div className='c-info-panel__item c-round-history'>
           <h4 className='c-round-history__title'>Round History</h4>
-          {roundHistory.map((item, idx) => (
+          {roundHistory?.map((item, idx) => (
             <div className='c-round-history__item' key={idx}>
               <NumberOfRound
                 className='c-round-history__numberOfRound'

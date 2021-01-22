@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render Loader component 1`] = `
+<div
+  className="c-loader__container"
+>
+  <div
+    className="c-loader"
+  >
+    <div
+      className="c-loader__cube1"
+    />
+    <div
+      className="c-loader__cube2"
+    />
+  </div>
+</div>
+`;

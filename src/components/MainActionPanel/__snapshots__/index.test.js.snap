@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render MainActionPanel component 1`] = `
+<div
+  className="c-main-action-panel"
+>
+  <button
+    className="c-btn c-main-action-panel__start-btn"
+    disabled={false}
+    onClick={[Function]}
+  >
+    Start Game
+  </button>
+</div>
+`;

@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render Cards component 1`] = `
+<div
+  className="c-cards"
+>
+  <h3
+    className="c-cards__owner-name"
+  >
+     
+    <span
+      className="c-cards__owner-score"
+    />
+  </h3>
+  <div
+    className="c-cards__container"
+  />
+</div>
+`;

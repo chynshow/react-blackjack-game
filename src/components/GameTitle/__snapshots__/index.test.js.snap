@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render GameTitle component 1`] = `
+<h1
+  className="c-game-title"
+>
+  <span
+    className="c-game-title__decor"
+  >
+    _
+  </span>
+  Blackjack Game.
+</h1>
+`;

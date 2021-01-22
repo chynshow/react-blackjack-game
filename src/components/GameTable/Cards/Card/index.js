@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Card = ({ card: { image, code }, cardImgStyles }) => {
+const Card = ({ card, cardImgStyles }) => {
   return (
     <div className='c-card'>
-      <img src={image} alt={code} className={cardImgStyles} />
+      <img src={card?.image} alt={card?.code} className={cardImgStyles} />
     </div>
   );
 };

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render BetForm component 1`] = `
+<form
+  className="c-bet-form"
+  onSubmit={[Function]}
+>
+  <input
+    className="c-bet-form__input"
+    onChange={[Function]}
+    type="number"
+    value={0}
+  />
+  <button
+    className="c-btn c-bet-form__btn"
+    type="submit"
+  >
+    Set Bet $
+  </button>
+</form>
+`;

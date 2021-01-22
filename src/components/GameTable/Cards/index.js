@@ -9,7 +9,7 @@ const Cards = ({ cards, ownerName, ownerScore, className }) => {
       </h3>
 
       <div className='c-cards__container'>
-        {cards.map((card) => (
+        {cards?.map((card) => (
           <Card key={card.code} card={card} cardImgStyles='c-card__img' />
         ))}
       </div>
