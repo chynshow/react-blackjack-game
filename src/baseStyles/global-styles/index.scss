@@ -4,10 +4,22 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: 90%; // 1rem = 10px
+
+  @include respond(tablet) {
+    font-size: 61%;
+    // color: green;
+  }
+  @include respond(mobileL) {
+    font-size: 59%;
+  }
+}
+
 body {
-  background: $bg-color;
-  color: $text-color;
-  font-family: 'Montserrat', sans-serif;
+  background: $color-dark;
+  color: $color-light;
+  font-family: $font-family;
 }
 
 .c-main-container {
@@ -24,6 +36,8 @@ body {
   padding: 1rem;
   border-radius: 5px;
   font-family: inherit;
+  // color: inherit;
+  font-size: inherit;
   margin: 0.2rem;
   cursor: pointer;
   transition: 0.2s ease;
@@ -35,11 +49,5 @@ body {
 
   &:hover {
     transform: scale(1.1);
-  }
-
-  &:disabled {
-    // background: transparent;
-    opacity: 0.8;
-    pointer-events: none;
   }
 }

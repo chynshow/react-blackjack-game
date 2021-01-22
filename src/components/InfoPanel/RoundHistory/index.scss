@@ -2,6 +2,7 @@
   position: fixed;
   top: 40%;
   left: 20%;
+
   &__item {
     margin: 0.5rem;
   }
@@ -19,5 +20,11 @@
     &:hover {
       width: 3rem;
     }
+  }
+
+  &__show-history-btn {
+    position: absolute;
+    left: 100%;
+    top: 0;
   }
 }

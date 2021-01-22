@@ -23,7 +23,7 @@ const BetForm = () => {
         onChange={(e) => setValue(+e.target.value)}
       />
       <button type='submit' className='c-btn c-bet-form__btn'>
-        Set Bet
+        Set Bet $
       </button>
     </form>
   );

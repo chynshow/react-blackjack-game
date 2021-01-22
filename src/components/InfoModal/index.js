@@ -1,20 +1,34 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AppContext } from '../../state/AppContext';
+import { HIDE_INFO_MODAL } from '../../state/AppReducer';
 
-const InfoModal = ({ btnTitle, cb, modalTitle, modalMsg, showModal }) => {
+const InfoModal = () => {
+  const {
+    state: {
+      infoModal: { isActive, title, msg, cb, closeBtnTitle },
+    },
+    dispatch,
+  } = useContext(AppContext);
+  const handelOnClick = () => {
+    if (!cb) return dispatch({ type: HIDE_INFO_MODAL });
+    cb();
+  };
+
   return (
     <>
       <div
         className={`${
-          showModal ? 'c-info-modal c-info-modal--active' : 'c-info-modal'
+          isActive ? 'c-info-modal c-info-modal--active' : 'c-info-modal'
         }`}
       >
-        <h5 className='c-info-modal__title'>{modalTitle}</h5>
-        <div className='c-info-modal__msg'>{modalMsg}</div>
-        <button className='c-btn c-info-modal__btn' onClick={() => cb()}>
-          {btnTitle}
+        <h5 className='c-info-modal__title'>{title}</h5>
+        <div className='c-info-modal__msg'>{msg}</div>
+
+        <button className='c-btn c-info-modal__btn' onClick={handelOnClick}>
+          {closeBtnTitle}
         </button>
       </div>
-      {showModal && <div className='c-info-modal__overlay' />}
+      {isActive && <div className='c-info-modal__overlay' />}
     </>
   );
 };

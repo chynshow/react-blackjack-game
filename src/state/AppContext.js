@@ -26,6 +26,9 @@ import AppReducer, {
   SET_DEALER_SCORE,
   SHOW_ALERT,
   HIDE_ALERT,
+  SHOW_INFO_MODAL,
+  GET_STATE,
+  HIDE_INFO_MODAL,
 } from './AppReducer';
 
 const initState = {
@@ -41,11 +44,16 @@ const initState = {
   dealerScore: 0,
   bet: 0,
   roundHistory: [],
-  finishRoundMsg: null,
   gameSave: null,
   stand: false,
   loading: false,
   alert: { msg: null, state: null },
+  infoModal: {
+    isActive: false,
+    title: null,
+    msg: null,
+    cb: null,
+  },
 };
 
 export const AppContext = createContext(initState);
@@ -59,6 +67,11 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('state', JSON.stringify(state));
   }, [state]);
+
+  useEffect(() => {
+    getResult(state.playerScore, state.dealerScore);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.playerScore, state.dealerScore]);
 
   const showAlert = (msg, state, time = 2000) => {
     dispatch({ type: SHOW_ALERT, payload: { msg, state } });
@@ -99,16 +112,28 @@ export const AppProvider = ({ children }) => {
   const startGame = () => dispatch({ type: START_GAME });
 
   const resetGame = () => {
+    if (state.infoModal) {
+      dispatch({ type: HIDE_INFO_MODAL });
+    }
     dispatch({ type: RESET_GAME });
     getCards();
   };
 
   const resetRound = () => {
     if (state.gameRound > 4 || state.credit <= 0) {
-      return dispatch({ type: FINISH_GAME });
+      dispatch({ type: FINISH_GAME });
+      return dispatch({
+        type: SHOW_INFO_MODAL,
+        payload: {
+          title: 'Finish Game!',
+          msg: `Your score ${state.credit}$`,
+          cb: () => resetGame(),
+          closeBtnTitle: 'New Game!',
+        },
+      });
     }
-
     dispatch({ type: RESET_ROUND });
+    dispatch({ type: HIDE_INFO_MODAL });
   };
 
   const saveGame = () => {
@@ -131,51 +156,96 @@ export const AppProvider = ({ children }) => {
   const getResult = (playerScore, dealerScore) => {
     if (playerScore === 21) {
       dispatch({ type: RESULT_PLAYER_WON });
+      dispatch({ type: FINISH_ROUND });
       dispatch({
-        type: FINISH_ROUND,
-        payload: 'You won! You got Blackjack!',
+        type: SHOW_INFO_MODAL,
+        payload: {
+          title: 'Finish Round!',
+          msg: 'You won! You got Blackjack!',
+          cb: () => resetRound(),
+          closeBtnTitle: 'New Deal!',
+        },
       });
     }
     if (dealerScore === 21) {
       dispatch({ type: RESULT_DEALER_WON });
+      dispatch({ type: FINISH_ROUND });
       dispatch({
-        type: FINISH_ROUND,
-        payload: 'You lose! Dealer got Blackjack',
+        type: SHOW_INFO_MODAL,
+        payload: {
+          title: 'Finish Round!',
+          msg: 'You lose! Dealer got Blackjack',
+          cb: () => resetRound(),
+          closeBtnTitle: 'New Deal!',
+        },
       });
     }
     if (playerScore > 21) {
       dispatch({ type: RESULT_DEALER_WON });
+      dispatch({ type: FINISH_ROUND });
       dispatch({
-        type: FINISH_ROUND,
-        payload: 'You went over 21! The dealer wins!',
+        type: SHOW_INFO_MODAL,
+        payload: {
+          title: 'Finish Round!',
+          msg: 'You went over 21! The dealer wins!',
+          cb: () => resetRound(),
+          closeBtnTitle: 'New Deal!',
+        },
       });
     }
     if (dealerScore > 21) {
       dispatch({ type: RESULT_PLAYER_WON });
+      dispatch({ type: FINISH_ROUND });
       dispatch({
-        type: FINISH_ROUND,
-        payload: 'Dealer went over 21! The dealer you went!',
+        type: SHOW_INFO_MODAL,
+        payload: {
+          title: 'Finish Round!',
+          msg: 'Dealer went over 21! The dealer you went!',
+          cb: () => resetRound(),
+          closeBtnTitle: 'New Deal!',
+        },
       });
     }
     if (state.stand) {
       if (dealerScore >= 17 && playerScore > dealerScore && playerScore < 21) {
         dispatch({ type: RESULT_PLAYER_WON });
+        dispatch({ type: FINISH_ROUND });
         dispatch({
-          type: FINISH_ROUND,
-          payload: 'You win! You beat the dealer!',
+          type: SHOW_INFO_MODAL,
+          payload: {
+            title: 'Finish Round!',
+            msg: 'You win! You beat the dealer!',
+            cb: () => resetRound(),
+            closeBtnTitle: 'New Deal!',
+          },
         });
       }
       if (dealerScore >= 17 && playerScore < dealerScore && dealerScore < 21) {
         dispatch({ type: RESULT_DEALER_WON });
+        dispatch({ type: FINISH_ROUND });
         dispatch({
-          type: FINISH_ROUND,
-          payload: 'You lost. Dealer had the higher score',
+          type: SHOW_INFO_MODAL,
+          payload: {
+            title: 'Finish Round!',
+            msg: 'You lost. Dealer had the higher score!',
+            cb: () => resetRound(),
+            closeBtnTitle: 'New Deal!',
+          },
         });
       }
     }
     if (dealerScore >= 17 && playerScore === dealerScore && dealerScore < 21) {
       dispatch({ type: RESULT_PUSH });
-      dispatch({ type: FINISH_ROUND, payload: 'Draw!' });
+      dispatch({ type: FINISH_ROUND });
+      dispatch({
+        type: SHOW_INFO_MODAL,
+        payload: {
+          title: 'Finish Round!',
+          msg: 'Draw!',
+          cb: () => resetRound(),
+          closeBtnTitle: 'New Deal!',
+        },
+      });
     }
   };
 
@@ -192,6 +262,28 @@ export const AppProvider = ({ children }) => {
   const doubleDown = () => {
     dispatch({ type: DOUBLE_DOWN });
     dispatch({ type: SET_PLAYER_SCORE });
+  };
+
+  const showGameScore = () => {
+    const msg = (
+      <div>
+        {state.gameScore.length > 0 &&
+          state.gameScore.sort().map((item, idx) => (
+            <div key={idx}>
+              {item.date}
+              {item.score}
+            </div>
+          ))}
+      </div>
+    );
+    dispatch({
+      type: SHOW_INFO_MODAL,
+      payload: {
+        title: 'Game Score!',
+        msg,
+        closeBtnTitle: 'Back to Game!',
+      },
+    });
   };
 
   return (
@@ -211,6 +303,7 @@ export const AppProvider = ({ children }) => {
         stand,
         doubleDown,
         dispatch,
+        showGameScore,
       }}
     >
       {children}

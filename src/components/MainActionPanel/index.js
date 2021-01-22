@@ -7,8 +7,10 @@ const MainActionPanel = () => {
     resetGame,
     saveGame,
     loadGame,
+    showGameScore,
     state: { gameStarted, gameSave, gameScore },
   } = useContext(AppContext);
+
   return (
     <div className='c-main-action-panel'>
       {!gameStarted && (
@@ -32,7 +34,7 @@ const MainActionPanel = () => {
             <button
               className='c-btn c-main-action-panel__btn'
               disabled={gameScore.length <= 0}
-              // onClick={() => showGameScore()}
+              onClick={() => showGameScore()}
             >
               Score
             </button>

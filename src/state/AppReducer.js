@@ -1,3 +1,4 @@
+import moment from 'moment';
 import getCards from '../helpers/getCards';
 import getCardsSum from '../helpers/getCardsSum';
 
@@ -32,9 +33,13 @@ export const SET_PLAYER_SCORE = 'SET_PLAYER_SCORE';
 export const SHOW_ALERT = 'SHOW_ALERT';
 export const HIDE_ALERT = 'HIDE_ALERT';
 
+export const SHOW_INFO_MODAL = 'SHOW_INFO_MODAL';
+export const HIDE_INFO_MODAL = 'HIDE_INFO_MODAL';
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state, action) => {
   const { type, payload } = action;
+  console.log(`State type: ${type}`);
   switch (type) {
     case GET_CARDS_REQUEST:
       return {
@@ -80,7 +85,13 @@ export default (state, action) => {
     case FINISH_GAME:
       return {
         ...state,
-        gameScore: [...state.gameScore, { score: state.credit }],
+        gameScore: [
+          ...state.gameScore,
+          {
+            score: state.credit,
+            date: moment('2016-03-12 13:00:00').add(1, 'day').format('LLL'),
+          },
+        ],
         gameStarted: false,
       };
     case SAVE_GAME:
@@ -122,7 +133,6 @@ export default (state, action) => {
     case FINISH_ROUND:
       return {
         ...state,
-        finishRoundMsg: payload,
         roundHistory: [
           ...state.roundHistory,
           {
@@ -220,6 +230,29 @@ export default (state, action) => {
       return {
         ...state,
         alert: { msg: null, state: null },
+      };
+    case SHOW_INFO_MODAL:
+      return {
+        ...state,
+        infoModal: {
+          isActive: true,
+          title: payload.title,
+          msg: payload.msg,
+          cb: payload.cb,
+          closeBtnTitle: payload.closeBtnTitle,
+        },
+      };
+
+    case HIDE_INFO_MODAL:
+      return {
+        ...state,
+        infoModal: {
+          isActive: false,
+          title: null,
+          msg: null,
+          cb: null,
+          closeBtnTitle: null,
+        },
       };
 
     case GET_STATE:

@@ -4,13 +4,12 @@ import MainActionPanel from './components/MainActionPanel';
 import InfoPanel from './components/InfoPanel';
 import GameTable from './components/GameTable';
 import ActionPanel from './components/ActionPanel';
-import GameResult from './components/GameResult';
 import { AppContext } from './state/AppContext';
 import BetForm from './components/BetForm';
 import Loader from './components/Loader';
 import Alert from './components/Alert';
 import { GET_STATE } from './state/AppReducer';
-import GameScore from './components/GameScore';
+import InfoModal from './components/InfoModal/index';
 
 const App = () => {
   const {
@@ -45,14 +44,13 @@ const App = () => {
       ) : (
         <main className='c-main-container'>
           <Alert />
-          <GameScore />
           <GameTitle />
           <MainActionPanel />
           {gameStarted && <InfoPanel />}
           {gameStarted && !roundStarted && bet <= 0 && <BetForm />}
           <GameTable />
-          <GameResult />
           {bet > 0 && <ActionPanel />}
+          <InfoModal />
         </main>
       )}
     </>

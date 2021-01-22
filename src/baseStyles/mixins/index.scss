@@ -1,0 +1,17 @@
+@mixin f-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex($flex-direction, $justify-content, $align-items) {
+  display: flex;
+  justify-content: $justify-content;
+  align-items: $align-items;
+  flex-direction: $flex-direction;
+}
+
+@mixin box($height, $width) {
+  height: $height;
+  width: $width;
+}

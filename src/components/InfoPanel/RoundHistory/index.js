@@ -37,6 +37,9 @@ const RoundHistory = ({ roundHistory }) => {
           </div>
         </div>
       ))}
+      {/* <button className='c-btn c-round-history__show-history-btn'>
+        Round History
+      </button> */}
     </div>
   );
 };
