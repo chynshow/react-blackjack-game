@@ -13,7 +13,6 @@ import AppReducer, {
   NEW_DEAL,
   SET_SCORE,
   FINISH_ROUND,
-  RESULT_PUSH,
   RESULT_PLAYER_WON,
   RESULT_DEALER_WON,
   RESET_ROUND,
@@ -245,7 +244,6 @@ export const AppProvider = ({ children }) => {
       }
     }
     if (dealerScore >= 17 && playerScore === dealerScore && dealerScore < 21) {
-      dispatch({ type: RESULT_PUSH });
       dispatch({ type: FINISH_ROUND });
       dispatch({
         type: SHOW_INFO_MODAL,
