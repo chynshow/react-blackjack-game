@@ -86,7 +86,10 @@ export default (state, action) => {
     case FINISH_GAME:
       return {
         ...state,
-        gameScore: [...state.gameScore, state.credit],
+        gameScore: [
+          ...state.gameScore,
+          { gameRound: state.gameScore.length + 1, credit: state.credit },
+        ],
         gameStarted: false,
       };
     case SAVE_GAME:

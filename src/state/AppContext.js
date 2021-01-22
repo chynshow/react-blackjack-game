@@ -278,12 +278,15 @@ export const AppProvider = ({ children }) => {
     const msg = (
       <div>
         {state.gameScore.length > 0 &&
-          state.gameScore.sort().map((item, idx) => (
-            <div key={idx}>
-              <span>Game-{idx + 1}:&nbsp;&nbsp;</span>
-              <span>{item}$</span>
-            </div>
-          ))}
+          state.gameScore
+            .sort((a, b) => a.credit - b.credit)
+            .reverse()
+            .map((item, idx) => (
+              <div key={idx}>
+                <span>Game-{item.gameRound}:&nbsp;&nbsp;</span>
+                <span>{item.credit}$</span>
+              </div>
+            ))}
       </div>
     );
     dispatch({
