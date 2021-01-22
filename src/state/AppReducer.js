@@ -1,4 +1,3 @@
-import moment from 'moment';
 import getCards from '../helpers/getCards';
 import getCardsSum from '../helpers/getCardsSum';
 

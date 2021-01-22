@@ -140,13 +140,20 @@ export const AppProvider = ({ children }) => {
       type: SHOW_INFO_MODAL,
       payload: {
         title: 'Game was save!',
-        closeBtnTitle: 'Back to game!',
+        closeBtnTitle: 'Back to game',
       },
     });
   };
 
   const loadGame = () => {
     dispatch({ type: LOAD_GAME });
+    dispatch({
+      type: SHOW_INFO_MODAL,
+      payload: {
+        title: 'Game was load!',
+        closeBtnTitle: 'Back to game',
+      },
+    });
   };
 
   const setBet = (bet) => {
@@ -164,9 +171,9 @@ export const AppProvider = ({ children }) => {
         type: SHOW_INFO_MODAL,
         payload: {
           title: 'Finish Round!',
-          msg: 'You won! You got Blackjack!',
+          msg: 'You won! You got Blackjack.',
           cb: () => resetRound(),
-          closeBtnTitle: 'New Deal!',
+          closeBtnTitle: 'New Deal',
         },
       });
     }
@@ -177,9 +184,9 @@ export const AppProvider = ({ children }) => {
         type: SHOW_INFO_MODAL,
         payload: {
           title: 'Finish Round!',
-          msg: 'You lose! Dealer got Blackjack',
+          msg: 'You lose! Dealer got Blackjack.',
           cb: () => resetRound(),
-          closeBtnTitle: 'New Deal!',
+          closeBtnTitle: 'New Deal',
         },
       });
     }
@@ -190,9 +197,9 @@ export const AppProvider = ({ children }) => {
         type: SHOW_INFO_MODAL,
         payload: {
           title: 'Finish Round!',
-          msg: 'You went over 21! The dealer wins!',
+          msg: 'You went over 21! The dealer wins.',
           cb: () => resetRound(),
-          closeBtnTitle: 'New Deal!',
+          closeBtnTitle: 'New Deal',
         },
       });
     }
@@ -203,9 +210,9 @@ export const AppProvider = ({ children }) => {
         type: SHOW_INFO_MODAL,
         payload: {
           title: 'Finish Round!',
-          msg: 'Dealer went over 21! The dealer you went!',
+          msg: 'Dealer went over 21! The dealer you went.',
           cb: () => resetRound(),
-          closeBtnTitle: 'New Deal!',
+          closeBtnTitle: 'New Deal',
         },
       });
     }
@@ -217,9 +224,9 @@ export const AppProvider = ({ children }) => {
           type: SHOW_INFO_MODAL,
           payload: {
             title: 'Finish Round!',
-            msg: 'You win! You beat the dealer!',
+            msg: 'You win! You beat the dealer.',
             cb: () => resetRound(),
-            closeBtnTitle: 'New Deal!',
+            closeBtnTitle: 'New Deal',
           },
         });
       }
@@ -230,9 +237,9 @@ export const AppProvider = ({ children }) => {
           type: SHOW_INFO_MODAL,
           payload: {
             title: 'Finish Round!',
-            msg: 'You lost. Dealer had the higher score!',
+            msg: 'You lost. Dealer had the higher score.',
             cb: () => resetRound(),
-            closeBtnTitle: 'New Deal!',
+            closeBtnTitle: 'New Deal',
           },
         });
       }
@@ -246,7 +253,7 @@ export const AppProvider = ({ children }) => {
           title: 'Finish Round!',
           msg: 'Draw!',
           cb: () => resetRound(),
-          closeBtnTitle: 'New Deal!',
+          closeBtnTitle: 'New Deal',
         },
       });
     }
@@ -284,7 +291,7 @@ export const AppProvider = ({ children }) => {
       payload: {
         title: 'Game Score!',
         msg,
-        closeBtnTitle: 'Back to Game!',
+        closeBtnTitle: 'Back to Game',
       },
     });
   };

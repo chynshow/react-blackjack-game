@@ -1,14 +1,12 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../../state/AppContext';
-import RoundHistory from './RoundHistory';
 
 const InfoPanel = () => {
   const {
-    state: { roundHistory, credit, bet, gameRound, roundStarted },
+    state: { credit, bet, gameRound, roundStarted },
   } = useContext(AppContext);
   return (
     <div className='c-info-panel'>
-      <RoundHistory roundHistory={roundHistory} />
       <PlayerCredit credit={credit} />
       <PlayerBet bet={bet} />
       {roundStarted && <NumberOfRound gameRound={gameRound} />}

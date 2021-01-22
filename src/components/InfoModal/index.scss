@@ -22,18 +22,18 @@
 
   &__title {
     font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
     font-size: 2rem;
-    padding: 1rem;
+    padding: 1.5rem;
   }
 
   &__msg {
-    // max-width: 25vw;
     text-align: center;
     line-height: 2;
-    padding: 1rem;
   }
 
   &__btn {
+    margin: 1rem;
     background: $color-dark;
     color: $color-light;
   }

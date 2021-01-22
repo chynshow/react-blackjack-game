@@ -8,13 +8,13 @@ import { AppContext } from './state/AppContext';
 import BetForm from './components/BetForm';
 import Loader from './components/Loader';
 import InfoModal from './components/InfoModal/index';
+import RoundHistory from './components/InfoPanel/RoundHistory';
 
 const App = () => {
   const {
     initApp,
     // saveGame,
-
-    state: { bet, roundStarted, gameStarted, loading },
+    state: { bet, roundStarted, gameStarted, loading, roundHistory },
   } = useContext(AppContext);
   useEffect(() => {
     initApp();
@@ -43,8 +43,12 @@ const App = () => {
           <GameTitle />
           <MainActionPanel />
           {gameStarted && <InfoPanel />}
+
+          <div className='c-main-container__aligner'>
+            <RoundHistory roundHistory={roundHistory} />
+            <GameTable />
+          </div>
           {gameStarted && !roundStarted && bet <= 0 && <BetForm />}
-          <GameTable />
           {bet > 0 && <ActionPanel />}
           <InfoModal />
         </main>

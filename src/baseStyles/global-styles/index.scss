@@ -5,11 +5,10 @@
 }
 
 html {
-  font-size: 90%; // 1rem = 10px
+  font-size: 90%;
 
   @include respond(tablet) {
     font-size: 61%;
-    // color: green;
   }
   @include respond(mobileL) {
     font-size: 59%;
@@ -28,6 +27,10 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+
+  &__aligner {
+    display: flex;
+  }
 }
 
 .c-btn {
