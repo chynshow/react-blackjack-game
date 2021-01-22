@@ -2,7 +2,6 @@ import moment from 'moment';
 import getCards from '../helpers/getCards';
 import getCardsSum from '../helpers/getCardsSum';
 
-export const GET_STATE = 'GET_STATE';
 export const GET_CARDS_REQUEST = 'GET_CARDS_REQUEST';
 export const GET_CARDS_SUCCESS = 'GET_CARDS_SUCCESS';
 export const GET_CARDS_FAIL = 'GET_CARDS_FAIL';
@@ -30,16 +29,13 @@ export const DOUBLE_DOWN = 'DOUBLE_DOWN';
 export const SET_DEALER_SCORE = 'SET_DEALER_SCORE';
 export const SET_PLAYER_SCORE = 'SET_PLAYER_SCORE';
 
-export const SHOW_ALERT = 'SHOW_ALERT';
-export const HIDE_ALERT = 'HIDE_ALERT';
-
 export const SHOW_INFO_MODAL = 'SHOW_INFO_MODAL';
 export const HIDE_INFO_MODAL = 'HIDE_INFO_MODAL';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state, action) => {
   const { type, payload } = action;
-  console.log(`State type: ${type}`);
+  console.log(`Action type: ${type}`);
   switch (type) {
     case GET_CARDS_REQUEST:
       return {
@@ -65,6 +61,7 @@ export default (state, action) => {
         gameStarted: true,
       };
     case RESET_GAME:
+      localStorage.removeItem('state');
       return {
         ...state,
         gameStarted: false,
@@ -80,7 +77,12 @@ export default (state, action) => {
         stand: false,
         roundHistory: [],
         loading: false,
-        finishRoundMsg: null,
+        infoModal: {
+          isActive: false,
+          title: null,
+          msg: null,
+          cb: null,
+        },
       };
     case FINISH_GAME:
       return {
@@ -221,16 +223,6 @@ export default (state, action) => {
         dealerScore: getCardsSum(state.dealerCards),
       };
 
-    case SHOW_ALERT:
-      return {
-        ...state,
-        alert: { msg: payload.msg, state: payload.state },
-      };
-    case HIDE_ALERT:
-      return {
-        ...state,
-        alert: { msg: null, state: null },
-      };
     case SHOW_INFO_MODAL:
       return {
         ...state,
@@ -242,7 +234,6 @@ export default (state, action) => {
           closeBtnTitle: payload.closeBtnTitle,
         },
       };
-
     case HIDE_INFO_MODAL:
       return {
         ...state,
@@ -255,11 +246,6 @@ export default (state, action) => {
         },
       };
 
-    case GET_STATE:
-      console.log(state);
-      return {
-        ...state,
-      };
     default:
       return state;
   }

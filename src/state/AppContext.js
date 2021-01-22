@@ -4,7 +4,6 @@ import AppReducer, {
   GET_CARDS_FAIL,
   GET_CARDS_REQUEST,
   GET_CARDS_SUCCESS,
-  SET_STATE,
   RESET_GAME,
   START_GAME,
   SAVE_GAME,
@@ -24,10 +23,7 @@ import AppReducer, {
   DOUBLE_DOWN,
   SET_PLAYER_SCORE,
   SET_DEALER_SCORE,
-  SHOW_ALERT,
-  HIDE_ALERT,
   SHOW_INFO_MODAL,
-  GET_STATE,
   HIDE_INFO_MODAL,
 } from './AppReducer';
 
@@ -47,7 +43,6 @@ const initState = {
   gameSave: null,
   stand: false,
   loading: false,
-  alert: { msg: null, state: null },
   infoModal: {
     isActive: false,
     title: null,
@@ -73,13 +68,6 @@ export const AppProvider = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.playerScore, state.dealerScore]);
 
-  const showAlert = (msg, state, time = 2000) => {
-    dispatch({ type: SHOW_ALERT, payload: { msg, state } });
-    setTimeout(() => {
-      dispatch({ type: HIDE_ALERT });
-    }, time);
-  };
-
   const getCards = async (deck = 6) => {
     dispatch({ type: GET_CARDS_REQUEST });
     try {
@@ -89,7 +77,12 @@ export const AppProvider = ({ children }) => {
 
       if (response1.status !== 200) {
         dispatch({ type: GET_CARDS_FAIL });
-        return showAlert('Server Error!', 'warn');
+        return dispatch({
+          type: SHOW_INFO_MODAL,
+          title: 'Server Error!',
+          closeBtnTitle: 'Reload Game!',
+          cb: () => resetGame(),
+        });
       }
 
       const response2 = await Axios.get(
@@ -98,7 +91,12 @@ export const AppProvider = ({ children }) => {
 
       if (response2.status !== 200) {
         dispatch({ type: GET_CARDS_FAIL });
-        return showAlert('Server Error!', 'warn');
+        return dispatch({
+          type: SHOW_INFO_MODAL,
+          title: 'Server Error!',
+          closeBtnTitle: 'Reload Game!',
+          cb: () => resetGame(),
+        });
       }
 
       dispatch({ type: GET_CARDS_SUCCESS, payload: response2.data.cards });
@@ -138,12 +136,17 @@ export const AppProvider = ({ children }) => {
 
   const saveGame = () => {
     dispatch({ type: SAVE_GAME });
-    showAlert('Game was save!', 'success');
+    dispatch({
+      type: SHOW_INFO_MODAL,
+      payload: {
+        title: 'Game was save!',
+        closeBtnTitle: 'Back to game!',
+      },
+    });
   };
 
   const loadGame = () => {
     dispatch({ type: LOAD_GAME });
-    showAlert('Game was load!', 'success');
   };
 
   const setBet = (bet) => {

@@ -21,9 +21,8 @@ const InfoModal = () => {
           isActive ? 'c-info-modal c-info-modal--active' : 'c-info-modal'
         }`}
       >
-        <h5 className='c-info-modal__title'>{title}</h5>
-        <div className='c-info-modal__msg'>{msg}</div>
-
+        {title && <h5 className='c-info-modal__title'>{title}</h5>}
+        {msg && <div className='c-info-modal__msg'>{msg}</div>}
         <button className='c-btn c-info-modal__btn' onClick={handelOnClick}>
           {closeBtnTitle}
         </button>
