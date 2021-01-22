@@ -8,7 +8,7 @@ The project is designed to demonstrate knowledge and practical skills about Java
 
 ### Demo
 
-https://hardcore-raman-593fb0.netlify.app
+https://cocky-bhabha-2e8f6f.netlify.app
 
 #### Screenshots of the app
 
