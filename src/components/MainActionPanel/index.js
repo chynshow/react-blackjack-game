@@ -13,14 +13,14 @@ const MainActionPanel = () => {
 
   return (
     <div className='c-main-action-panel'>
-      {!gameStarted && (
-        <button
-          className='c-btn c-main-action-panel__btn'
-          onClick={() => startGame()}
-        >
-          Start Game
-        </button>
-      )}
+      <button
+        className='c-btn c-main-action-panel__start-btn'
+        onClick={() => startGame()}
+        disabled={gameStarted}
+      >
+        Start Game
+      </button>
+
       {gameStarted && (
         <>
           <button

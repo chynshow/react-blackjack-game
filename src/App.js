@@ -40,7 +40,7 @@ const App = () => {
         <Loader />
       ) : (
         <main className='c-main-container'>
-          <GameTitle />
+          {!gameStarted && <GameTitle />}
           <MainActionPanel />
           {gameStarted && <InfoPanel />}
 
@@ -48,6 +48,7 @@ const App = () => {
             <RoundHistory roundHistory={roundHistory} />
             <GameTable />
           </div>
+
           {gameStarted && !roundStarted && bet <= 0 && <BetForm />}
           {bet > 0 && <ActionPanel />}
           <InfoModal />

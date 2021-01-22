@@ -1,30 +1,28 @@
 @mixin respond($breakpoint) {
   @if $breakpoint==mobileL {
     @media (max-width: 26.56em) {
+      // 424.96 px
       @content;
     }
   }
 
   @if $breakpoint==tablet {
     @media (max-width: 48em) {
+      // 768 px
       @content;
     }
   }
 
   @if $breakpoint==laptop {
     @media (max-width: 64em) {
+      // 1024 px
       @content;
     }
   }
 
   @if $breakpoint==laptopL {
     @media (max-width: 90em) {
-      @content;
-    }
-  }
-
-  @if $breakpoint==k {
-    @media (min-width: 160em) {
+      // 1440 px
       @content;
     }
   }

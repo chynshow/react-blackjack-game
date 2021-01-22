@@ -2,23 +2,31 @@ import React, { useContext } from 'react';
 import { AppContext } from '../../state/AppContext';
 
 const ActionPanel = () => {
-  const { hit, stand, doubleDown, state } = useContext(AppContext);
+  const {
+    hitAction,
+    doubleDownAction,
+    standAction,
+    state: { stand },
+  } = useContext(AppContext);
   return (
     <div className='c-action-panel'>
       <button
         className='c-btn c-action-panel__btn'
-        disabled={state.stand}
-        onClick={() => hit()}
+        disabled={stand}
+        onClick={() => hitAction()}
       >
         Hit
       </button>
-      <button className='c-btn c-action-panel__btn' onClick={() => stand()}>
-        Stand
+      <button
+        className='c-btn c-action-panel__btn'
+        onClick={() => standAction()}
+      >
+        {stand ? 'Next' : 'Stand'}
       </button>
       <button
         className='c-btn c-action-panel__btn'
-        onClick={() => doubleDown()}
-        disabled={state.stand}
+        onClick={() => doubleDownAction()}
+        disabled={stand}
       >
         Double Down
       </button>

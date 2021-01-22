@@ -1,3 +1,7 @@
 .c-main-action-panel {
   padding: 1rem 0;
+
+  &__start-btn {
+    animation: fromRight 1000ms linear both;
+  }
 }

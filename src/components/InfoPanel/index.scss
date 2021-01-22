@@ -1,6 +1,6 @@
 .c-info-panel {
   display: flex;
-
+  animation: scale 1000ms linear both;
   &__item {
     padding: 1rem;
   }

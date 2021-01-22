@@ -2,6 +2,7 @@
   border-radius: 5px;
   color: $color-dark;
   background: $color-light;
+  animation: scale 1000ms linear both;
 
   &__title {
     padding: 0.5rem;
@@ -12,6 +13,7 @@
 
   &__item {
     margin: 0.5rem;
+    animation: scale 1000ms linear both;
   }
 
   &__dealer-cards {

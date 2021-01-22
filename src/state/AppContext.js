@@ -257,17 +257,17 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  const hit = () => {
+  const hitAction = () => {
     dispatch({ type: HIT });
     dispatch({ type: SET_PLAYER_SCORE });
   };
 
-  const stand = () => {
+  const standAction = () => {
     dispatch({ type: STAND });
     dispatch({ type: SET_DEALER_SCORE });
   };
 
-  const doubleDown = () => {
+  const doubleDownAction = () => {
     dispatch({ type: DOUBLE_DOWN });
     dispatch({ type: SET_PLAYER_SCORE });
   };
@@ -307,9 +307,9 @@ export const AppProvider = ({ children }) => {
         setBet,
         getResult,
         resetRound,
-        hit,
-        stand,
-        doubleDown,
+        hitAction,
+        standAction,
+        doubleDownAction,
         dispatch,
         showGameScore,
       }}
