@@ -34,7 +34,6 @@ export const HIDE_INFO_MODAL = 'HIDE_INFO_MODAL';
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state, action) => {
   const { type, payload } = action;
-  console.log(`Action type: ${type}`);
   switch (type) {
     case GET_CARDS_REQUEST:
       return {
@@ -120,7 +119,6 @@ export default (state, action) => {
         ...state,
         credit: state.credit - payload,
         bet: state.bet + payload,
-        showBetInput: false,
       };
     case START_ROUND:
       return {
@@ -157,7 +155,6 @@ export default (state, action) => {
         bet: 0,
         playerScore: 0,
         dealerScore: 0,
-        finishRoundMsg: null,
         stand: false,
       };
     case NEW_DEAL:

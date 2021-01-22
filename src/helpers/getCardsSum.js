@@ -12,8 +12,6 @@ export default (cards) =>
 
       if (!isNaN(card.value)) return (acc += +card.value);
 
-      // if (card.value.startsWith('A') && acc + 11 > 21) return (acc += 1);
-
       if (card.value.startsWith('A')) {
         if (acc + 11 < 21) {
           return (acc += 11);

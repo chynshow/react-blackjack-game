@@ -13,27 +13,31 @@ import RoundHistory from './components/InfoPanel/RoundHistory';
 const App = () => {
   const {
     initApp,
-    saveGame,
-    state: { bet, roundStarted, gameStarted, loading, roundHistory },
+    // saveGame,
+    playerBet,
+    roundStarted,
+    gameStarted,
+    loading,
+    roundHistory,
   } = useContext(AppContext);
   useEffect(() => {
     initApp();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleOnClose = (e) => {
-    e.preventDefault();
-    e.returnValue = '';
-    saveGame();
-  };
+  // const handleOnClose = (e) => {
+  //   e.preventDefault();
+  //   e.returnValue = '';
+  //   saveGame();
+  // };
 
-  useEffect(() => {
-    window.addEventListener('beforeunload', (e) => handleOnClose(e));
-    return () => {
-      window.removeEventListener('beforeunload', (e) => handleOnClose(e));
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   window.addEventListener('beforeunload', (e) => handleOnClose(e));
+  //   return () => {
+  //     window.removeEventListener('beforeunload', (e) => handleOnClose(e));
+  //   };
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   return (
     <>
@@ -50,8 +54,8 @@ const App = () => {
             <GameTable />
           </div>
 
-          {gameStarted && !roundStarted && bet <= 0 && <BetForm />}
-          {bet > 0 && <ActionPanel />}
+          {gameStarted && !roundStarted && playerBet <= 0 && <BetForm />}
+          {playerBet > 0 && <ActionPanel />}
           <InfoModal />
         </main>
       )}

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render App component 1`] = `
+<Fragment>
+  <main
+    className="c-main-container"
+  >
+    <GameTitle />
+    <MainActionPanel />
+    <div
+      className="c-main-container__aligner"
+    >
+      <Memo(RoundHistory)
+        roundHistory={Array []}
+      />
+      <GameTable />
+    </div>
+    <InfoModal />
+  </main>
+</Fragment>
+`;

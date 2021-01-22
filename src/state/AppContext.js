@@ -27,7 +27,7 @@ import AppReducer, {
   RESULT_DRAW,
 } from './AppReducer';
 
-const initState = {
+export const initState = {
   gameStarted: false,
   roundStarted: false,
   gameRound: 0,
@@ -100,6 +100,7 @@ export const AppProvider = ({ children }) => {
       }
 
       dispatch({ type: GET_CARDS_SUCCESS, payload: response2.data.cards });
+      console.log(response2.data.cards);
     } catch (error) {
       dispatch({ type: GET_CARDS_FAIL });
     }
