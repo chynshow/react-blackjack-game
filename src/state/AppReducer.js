@@ -18,6 +18,7 @@ export const RESET_ROUND = 'RESET_ROUND';
 export const NEW_DEAL = 'NEW_DEAL';
 export const SET_SCORE = 'SET_SCORE';
 
+export const RESULT_DRAW = 'RESULT_DRAW';
 export const RESULT_PLAYER_WON = 'RESULT_PLAYER_WON';
 export const RESULT_DEALER_WON = 'RESULT_DEALER_WON';
 
@@ -169,6 +170,11 @@ export default (state, action) => {
         dealerScore: getCardsSum(state.dealerCards),
       };
 
+    case RESULT_DRAW:
+      return {
+        ...state,
+        credit: state.credit + state.bet,
+      };
     case RESULT_PLAYER_WON:
       return {
         ...state,

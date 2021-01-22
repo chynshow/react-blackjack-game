@@ -8,6 +8,7 @@ const ActionPanel = () => {
     standAction,
     state: { stand },
   } = useContext(AppContext);
+
   return (
     <div className='c-action-panel'>
       <button

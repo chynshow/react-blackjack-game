@@ -24,6 +24,7 @@ import AppReducer, {
   SET_DEALER_SCORE,
   SHOW_INFO_MODAL,
   HIDE_INFO_MODAL,
+  RESULT_DRAW,
 } from './AppReducer';
 
 const initState = {
@@ -244,6 +245,7 @@ export const AppProvider = ({ children }) => {
       }
     }
     if (dealerScore >= 17 && playerScore === dealerScore && dealerScore < 21) {
+      dispatch({ type: RESULT_DRAW });
       dispatch({ type: FINISH_ROUND });
       dispatch({
         type: SHOW_INFO_MODAL,

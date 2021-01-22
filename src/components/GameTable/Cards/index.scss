@@ -1,21 +1,16 @@
 .c-cards {
   padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include flex(column, center, center);
 
   &__owner-name {
     padding: 0.5rem;
     font-weight: 400;
-    display: flex;
-    align-items: center;
+    @include flex(null, center, center);
   }
 
   &__owner-score {
     margin-left: 0.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex(column, center, center);
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
@@ -28,13 +23,5 @@
 
   &--disable {
     filter: grayscale(100%);
-  }
-}
-
-.c-card {
-  animation: scale 1000ms linear both;
-  &__img {
-    margin: 0.5rem;
-    width: 5rem;
   }
 }

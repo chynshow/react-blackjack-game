@@ -1,4 +1,5 @@
 import React from 'react';
+import Card from './Card/index';
 
 const Cards = ({ cards, ownerName, ownerScore, className }) => {
   return (
@@ -9,19 +10,11 @@ const Cards = ({ cards, ownerName, ownerScore, className }) => {
 
       <div className='c-cards__container'>
         {cards.map((card) => (
-          <Card key={card.code} card={card} />
+          <Card key={card.code} card={card} cardImgStyles='c-card__img' />
         ))}
       </div>
     </div>
   );
 };
 
-export default Cards;
-
-const Card = ({ card: { image, code } }) => {
-  return (
-    <div className='c-card'>
-      <img src={image} alt={code} className='c-card__img' />
-    </div>
-  );
-};
+export default React.memo(Cards);

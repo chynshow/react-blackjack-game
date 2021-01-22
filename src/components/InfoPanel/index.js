@@ -1,5 +1,8 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../../state/AppContext';
+import PlayerCredit from './PlayerCredit';
+import PlayerBet from './PlayerBet/index';
+import NumberOfRound from './NumberOfRound';
 
 const InfoPanel = () => {
   const {
@@ -7,33 +10,19 @@ const InfoPanel = () => {
   } = useContext(AppContext);
   return (
     <div className='c-info-panel'>
-      <PlayerCredit credit={credit} />
-      <PlayerBet bet={bet} />
-      {roundStarted && <NumberOfRound gameRound={gameRound} />}
+      <PlayerCredit
+        credit={credit}
+        className='c-info-panel__item c-player-credit'
+      />
+      <PlayerBet bet={bet} className='c-info-panel__item c-player-bet' />
+      {roundStarted && (
+        <NumberOfRound
+          gameRound={gameRound}
+          className='c-info-panel__item c-number-of-round'
+        />
+      )}
     </div>
   );
 };
 
 export default InfoPanel;
-
-const PlayerCredit = ({ credit }) => {
-  return (
-    <div className='c-info-panel__item c-player-credit'>
-      Player Credit: {credit}$
-    </div>
-  );
-};
-
-const PlayerBet = ({ bet }) => {
-  return (
-    <div className='c-info-panel__item c-player-bet'>Player bet: {bet}$</div>
-  );
-};
-
-const NumberOfRound = ({ gameRound }) => {
-  return (
-    <div className='c-info-panel__item c-number-of-round'>
-      Round: {gameRound} / 5
-    </div>
-  );
-};
