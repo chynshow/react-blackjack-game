@@ -25,6 +25,10 @@
   &__container {
     display: flex;
   }
+
+  &--disable {
+    filter: grayscale(100%);
+  }
 }
 
 .c-card {

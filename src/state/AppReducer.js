@@ -87,13 +87,7 @@ export default (state, action) => {
     case FINISH_GAME:
       return {
         ...state,
-        gameScore: [
-          ...state.gameScore,
-          {
-            score: state.credit,
-            date: moment('2016-03-12 13:00:00').add(1, 'day').format('LLL'),
-          },
-        ],
+        gameScore: [...state.gameScore, state.credit],
         gameStarted: false,
       };
     case SAVE_GAME:

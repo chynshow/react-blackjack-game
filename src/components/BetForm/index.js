@@ -1,17 +1,26 @@
 import React, { useContext, useState } from 'react';
 import { AppContext } from '../../state/AppContext';
+import { SHOW_INFO_MODAL } from '../../state/AppReducer';
 
 const BetForm = () => {
   const {
     state: { credit, gameStarted },
     setBet,
+    dispatch,
   } = useContext(AppContext);
   const [value, setValue] = useState(0);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
     if (gameStarted && (!value || value > credit))
-      return console.error('Invalid bet error message!');
+      return dispatch({
+        type: SHOW_INFO_MODAL,
+        payload: {
+          title: 'Please set a correct bet!',
+          msg: `Bet should be more then zero and less then ${credit}$`,
+          closeBtnTitle: 'Back to game!',
+        },
+      });
     setBet(value);
   };
   return (

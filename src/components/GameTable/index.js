@@ -4,7 +4,7 @@ import Cards from './Cards';
 
 const GameTable = () => {
   const {
-    state: { playerCards, dealerCards, playerScore, dealerScore },
+    state: { playerCards, dealerCards, playerScore, dealerScore, stand },
   } = useContext(AppContext);
   return (
     <>
@@ -16,6 +16,7 @@ const GameTable = () => {
             ownerScore={dealerScore}
           />
           <Cards
+            className={stand ? 'c-cards c-cards--disable' : 'c-cards'}
             cards={playerCards}
             ownerName='Player'
             ownerScore={playerScore}

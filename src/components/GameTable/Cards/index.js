@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Cards = ({ cards, ownerName, ownerScore }) => {
+const Cards = ({ cards, ownerName, ownerScore, className }) => {
   return (
-    <div className='c-cards'>
+    <div className={className ? className : 'c-cards'}>
       <h3 className='c-cards__owner-name'>
         {ownerName} <span className='c-cards__owner-score'>{ownerScore}</span>
       </h3>

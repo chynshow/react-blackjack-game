@@ -273,8 +273,8 @@ export const AppProvider = ({ children }) => {
         {state.gameScore.length > 0 &&
           state.gameScore.sort().map((item, idx) => (
             <div key={idx}>
-              {item.date}
-              {item.score}
+              <span>Game-{idx + 1}:&nbsp;&nbsp;</span>
+              <span>{item}$</span>
             </div>
           ))}
       </div>
