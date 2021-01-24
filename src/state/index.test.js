@@ -291,7 +291,7 @@ describe('test app reducer', () => {
       playerCards: [...initState.playerCards, ...action.payload],
       stand: true,
       bet: initState.bet * 2,
-      credit: initState.credit - initState.bet * 2,
+      credit: initState.credit - initState.bet,
     };
     expect(res).toEqual(output);
   });

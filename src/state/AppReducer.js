@@ -33,6 +33,7 @@ export const HIDE_INFO_MODAL = 'HIDE_INFO_MODAL';
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state, action) => {
   const { type, payload } = action;
+
   switch (type) {
     case GET_CARDS_REQUEST:
       return {
@@ -168,16 +169,12 @@ export default (state, action) => {
         dealerScore: getCardsSum(state.dealerCards),
       };
 
-    case RESULT_DRAW:
-      return {
-        ...state,
-        credit: state.credit + state.bet,
-      };
     case RESULT_PLAYER_WON:
       return {
         ...state,
         credit: state.credit + state.bet * 1.5,
       };
+    case RESULT_DRAW:
     case RESULT_DEALER_WON:
       return {
         ...state,
@@ -192,14 +189,14 @@ export default (state, action) => {
     case STAND:
       return {
         ...state,
-        dealerCards: [...state.playerCards, ...payload],
+        dealerCards: [...state.dealerCards, ...payload],
         stand: true,
       };
     case DOUBLE_DOWN:
       return {
         ...state,
         bet: state.bet * 2,
-        credit: state.credit - state.bet * 2,
+        credit: state.credit - state.bet,
         playerCards: [...state.playerCards, ...payload],
         stand: true,
       };

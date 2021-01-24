@@ -119,11 +119,9 @@ export const AppProvider = ({ children }) => {
   };
 
   const resetRound = () => {
-    if (state.gameRound > 4 || state.credit <= 0) {
+    if (state.gameRound > 4) {
       dispatch({ type: FINISH_GAME });
-      const gameOverMsg = `Game over ${
-        state.credit <= 0 ? 'you are out of money' : ''
-      } your score: ${state.credit}`;
+      const gameOverMsg = `Game over your score: ${state.credit}$`;
       return dispatch({
         type: SHOW_INFO_MODAL,
         payload: {
