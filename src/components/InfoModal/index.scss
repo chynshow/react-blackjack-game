@@ -1,5 +1,5 @@
 .c-info-modal {
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%) scale(0);
@@ -13,7 +13,8 @@
   z-index: 2;
 
   @include respond(tablet) {
-    @include box(90vh, 90vw);
+    @include box(100vh, 100vw);
+    border-radius: 0;
   }
 
   &__title {
