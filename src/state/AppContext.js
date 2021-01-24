@@ -62,6 +62,7 @@ export const AppProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem('state', JSON.stringify(state));
+    console.log(state);
   }, [state]);
 
   useEffect(() => {
@@ -119,19 +120,6 @@ export const AppProvider = ({ children }) => {
   };
 
   const resetRound = () => {
-    if (state.gameRound > 4) {
-      dispatch({ type: FINISH_GAME });
-      const gameOverMsg = `Game over your score: ${state.credit}$`;
-      return dispatch({
-        type: SHOW_INFO_MODAL,
-        payload: {
-          title: 'Finish Game!',
-          msg: gameOverMsg,
-          cb: () => resetGame(),
-          closeBtnTitle: 'New Game!',
-        },
-      });
-    }
     dispatch({ type: RESET_ROUND });
     dispatch({ type: HIDE_INFO_MODAL });
   };
@@ -261,6 +249,20 @@ export const AppProvider = ({ children }) => {
         },
       });
     }
+
+    if (state.gameRound > 4 && !state.roundStarted) {
+      dispatch({ type: FINISH_GAME });
+      const gameOverMsg = `Game over, your score: ${state.credit}$`;
+      return dispatch({
+        type: SHOW_INFO_MODAL,
+        payload: {
+          title: 'Finish Game!',
+          msg: gameOverMsg,
+          cb: () => resetGame(),
+          closeBtnTitle: 'New Game!',
+        },
+      });
+    }
   };
 
   const hitAction = () => {
@@ -276,6 +278,19 @@ export const AppProvider = ({ children }) => {
   };
 
   const doubleDownAction = () => {
+    /*
+    One more option to inform player about invalid bet.
+    if ( state.bet > state.credit) {
+      return dispatch({
+        type: SHOW_INFO_MODAL,
+        payload: {
+          title: 'Oops!',
+          msg: 'Not enough funds to bet.',
+          closeBtnTitle: 'Back to game',
+        },
+      });
+    }
+    */
     const playerCards = getCardsFromDeck(state.deck, 1);
     dispatch({ type: DOUBLE_DOWN, payload: playerCards });
     dispatch({ type: SET_PLAYER_SCORE });
