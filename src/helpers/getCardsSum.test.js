@@ -60,11 +60,11 @@ describe('test getCardSum function', () => {
     const res = getCardsSum(ace);
     expect(res).toBe(13);
   });
-  it('test if cards are only ace and number values', () => {
+  it('test if cards are ace and number values', () => {
     const res = getCardsSum([...numberCards, ...ace]);
     expect(res).toBe(14);
   });
-  it('test if cards are only picture and ace values', () => {
+  it('test if cards are picture and ace values', () => {
     const res = getCardsSum([...pictureCards, ...ace]);
     expect(res).toBe(33);
   });

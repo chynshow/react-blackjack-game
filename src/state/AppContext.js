@@ -26,6 +26,8 @@ import AppReducer, {
   HIDE_INFO_MODAL,
   RESULT_DRAW,
 } from './AppReducer';
+import getCardsFromDeck from './../helpers/getCards';
+import getCardsSum from '../helpers/getCardsSum';
 
 export const initState = {
   gameStarted: false,
@@ -100,7 +102,6 @@ export const AppProvider = ({ children }) => {
       }
 
       dispatch({ type: GET_CARDS_SUCCESS, payload: response2.data.cards });
-      console.log(response2.data.cards);
     } catch (error) {
       dispatch({ type: GET_CARDS_FAIL });
     }
@@ -158,9 +159,11 @@ export const AppProvider = ({ children }) => {
   };
 
   const setBet = (bet) => {
+    const playerCards = getCardsFromDeck(state.deck, 2);
+    const dealerCards = getCardsFromDeck(state.deck, 2);
     dispatch({ type: SET_BET, payload: bet });
     dispatch({ type: START_ROUND });
-    dispatch({ type: NEW_DEAL });
+    dispatch({ type: NEW_DEAL, payload: { playerCards, dealerCards } });
     dispatch({ type: SET_SCORE });
   };
 
@@ -261,17 +264,20 @@ export const AppProvider = ({ children }) => {
   };
 
   const hitAction = () => {
-    dispatch({ type: HIT });
+    const playerCards = getCardsFromDeck(state.deck, 1);
+    dispatch({ type: HIT, payload: playerCards });
     dispatch({ type: SET_PLAYER_SCORE });
   };
 
   const standAction = () => {
-    dispatch({ type: STAND });
+    const dealerCards = getCardsFromDeck(state.deck, 1);
+    dispatch({ type: STAND, payload: dealerCards });
     dispatch({ type: SET_DEALER_SCORE });
   };
 
   const doubleDownAction = () => {
-    dispatch({ type: DOUBLE_DOWN });
+    const playerCards = getCardsFromDeck(state.deck, 1);
+    dispatch({ type: DOUBLE_DOWN, payload: playerCards });
     dispatch({ type: SET_PLAYER_SCORE });
   };
 

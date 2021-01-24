@@ -7,29 +7,48 @@ import AppReducer, {
   SAVE_GAME,
   SET_BET,
   START_ROUND,
-  //   NEW_DEAL,
   SET_SCORE,
-  //   FINISH_ROUND,
+  FINISH_ROUND,
   RESULT_PLAYER_WON,
   RESULT_DEALER_WON,
   RESET_ROUND,
-  //   FINISH_GAME,
-  //   HIT,
-  //   STAND,
-  //   DOUBLE_DOWN,
-  //   SET_PLAYER_SCORE,
-  //   SET_DEALER_SCORE,
-  //   SHOW_INFO_MODAL,
-  //   HIDE_INFO_MODAL,
-  //   RESULT_DRAW,
+  FINISH_GAME,
+  HIT,
+  NEW_DEAL,
+  STAND,
+  DOUBLE_DOWN,
+  SET_PLAYER_SCORE,
+  SET_DEALER_SCORE,
+  SHOW_INFO_MODAL,
+  HIDE_INFO_MODAL,
+  RESULT_DRAW,
 } from './AppReducer';
 import getCardsSum from './../helpers/getCardsSum';
-// import getCards from './../helpers/getCards';
-
+import getCards from '../helpers/getCards';
 import { initState } from './AppContext';
 
 describe('test app reducer', () => {
   const cards = [
+    {
+      code: '2D',
+      image: 'https://deckofcardsapi.com/static/img/2D.png',
+      images: {
+        png: 'https://deckofcardsapi.com/static/img/2D.png',
+        svg: 'https://deckofcardsapi.com/static/img/2D.svg',
+      },
+      suit: 'DIAMONDS',
+      value: '2',
+    },
+    {
+      code: '9H',
+      image: 'https://deckofcardsapi.com/static/img/9H.png',
+      images: {
+        png: 'https://deckofcardsapi.com/static/img/9H.svg',
+        svg: 'https://deckofcardsapi.com/static/img/9H.svg',
+      },
+      suit: 'HEARTS',
+      value: '9',
+    },
     {
       code: '2D',
       image: 'https://deckofcardsapi.com/static/img/2D.png',
@@ -140,7 +159,6 @@ describe('test app reducer', () => {
       gameRound: initState.gameRound + 1,
     });
   });
-
   it('test reducer with SET_SCORE action', () => {
     const action = { type: SET_SCORE };
 
@@ -199,6 +217,193 @@ describe('test app reducer', () => {
       ...initState,
       credit: initState.credit,
       bet: 5,
+    };
+    expect(res).toEqual(output);
+  });
+  it('test reducer with RESULT_DRAW action', () => {
+    const action = { type: RESULT_DRAW };
+    const bet = 5;
+
+    const res = AppReducer(
+      { ...initState, bet, credit: initState.credit - bet },
+      action
+    );
+
+    const output = {
+      ...initState,
+      credit: initState.credit + initState.bet,
+      bet: 5,
+    };
+    expect(res).toEqual(output);
+  });
+  it('test reducer with HIT action', () => {
+    const action = { type: HIT, payload: getCards(cards, 1) };
+
+    const res = AppReducer(initState, action);
+
+    const output = {
+      ...initState,
+      playerCards: [...initState.playerCards, ...action.payload],
+    };
+    expect(res).toEqual(output);
+  });
+  it('test reducer with NEW_DEAL action', () => {
+    const action = {
+      type: NEW_DEAL,
+      payload: {
+        playerCards: [...initState.playerCards, ...getCards(cards, 2)],
+        dealerCards: [...initState.dealerCards, ...getCards(cards, 2)],
+      },
+    };
+
+    const res = AppReducer(initState, action);
+
+    const output = {
+      ...initState,
+      playerCards: action.payload.playerCards,
+      dealerCards: action.payload.dealerCards,
+    };
+    expect(res).toEqual(output);
+  });
+  it('test reducer with STAND action', () => {
+    const action = { type: STAND, payload: getCards(cards, 1) };
+
+    const res = AppReducer(initState, action);
+
+    const output = {
+      ...initState,
+      dealerCards: [...initState.dealerCards, ...action.payload],
+      stand: true,
+    };
+    expect(res).toEqual(output);
+  });
+  it('test reducer with DOUBLE_DOWN action', () => {
+    const action = { type: DOUBLE_DOWN, payload: getCards(cards, 1) };
+
+    const res = AppReducer(initState, action);
+
+    const output = {
+      ...initState,
+      playerCards: [...initState.playerCards, ...action.payload],
+      stand: true,
+      bet: initState.bet * 2,
+      credit: initState.credit - initState.bet * 2,
+    };
+    expect(res).toEqual(output);
+  });
+  it('test reducer with SET_PLAYER_SCORE action', () => {
+    const action = { type: SET_PLAYER_SCORE };
+
+    const res = AppReducer(
+      {
+        ...initState,
+        playerCards: [...initState.playerCards, ...getCards(cards, 2)],
+      },
+      action
+    );
+
+    const output = {
+      ...initState,
+      playerScore: getCardsSum(initState.playerCards),
+    };
+    expect(res).toEqual(output);
+  });
+  it('test reducer with SET_DEALER_SCORE action', () => {
+    const action = { type: SET_DEALER_SCORE };
+
+    const res = AppReducer(
+      {
+        ...initState,
+        dealerCards: [...initState.dealerCards, ...getCards(cards, 2)],
+      },
+      action
+    );
+
+    const output = {
+      ...initState,
+      dealerScore: getCardsSum(initState.dealerCards),
+    };
+    expect(res).toEqual(output);
+  });
+  it('test reducer with SHOW_INFO_MODAL action', () => {
+    const payload = {
+      title: 'Modal title',
+      msg: 'Modal message',
+      cb: () => console.log('Modal callBack'),
+      closeBtnTitle: 'Close modal',
+    };
+    const action = { type: SHOW_INFO_MODAL, payload };
+
+    const res = AppReducer(initState, action);
+
+    const output = {
+      ...initState,
+      infoModal: {
+        isActive: true,
+        title: payload.title,
+        msg: payload.msg,
+        cb: payload.cb,
+        closeBtnTitle: payload.closeBtnTitle,
+      },
+    };
+    expect(res).toEqual(output);
+  });
+  it('test reducer with HIDE_INFO_MODAL action', () => {
+    const action = { type: HIDE_INFO_MODAL };
+
+    const res = AppReducer(initState, action);
+
+    const output = {
+      ...initState,
+      infoModal: {
+        isActive: false,
+        title: null,
+        msg: null,
+        cb: null,
+        closeBtnTitle: null,
+      },
+    };
+    expect(res).toEqual(output);
+  });
+  it('test reducer with FINISH_ROUND action', () => {
+    const action = { type: FINISH_ROUND };
+
+    const res = AppReducer(initState, action);
+
+    const output = {
+      ...initState,
+      roundHistory: [
+        ...initState.roundHistory,
+        {
+          cards: {
+            playerCards: [...initState.playerCards],
+            dealerCards: [...initState.dealerCards],
+          },
+          score: {
+            playerScore: initState.playerScore,
+            dealerScore: initState.dealerScore,
+          },
+          round: initState.gameRound,
+          credit: initState.credit,
+          bet: initState.bet,
+        },
+      ],
+      roundStarted: false,
+    };
+    expect(res).toEqual(output);
+  });
+  it('test reducer with FINISH_GAME action', () => {
+    const action = { type: FINISH_GAME };
+
+    const res = AppReducer(initState, action);
+
+    const output = {
+      ...initState,
+      gameScore: [
+        ...initState.gameScore,
+        { gameRound: initState.gameScore.length + 1, credit: initState.credit },
+      ],
+      gameStarted: false,
     };
     expect(res).toEqual(output);
   });

@@ -1,4 +1,3 @@
-import getCards from '../helpers/getCards';
 import getCardsSum from '../helpers/getCardsSum';
 
 export const GET_CARDS_REQUEST = 'GET_CARDS_REQUEST';
@@ -59,7 +58,6 @@ export default (state, action) => {
         gameStarted: true,
       };
     case RESET_GAME:
-      localStorage.removeItem('state');
       return {
         ...state,
         gameStarted: false,
@@ -160,8 +158,8 @@ export default (state, action) => {
     case NEW_DEAL:
       return {
         ...state,
-        playerCards: [...state.playerCards, ...getCards(state.deck, 2)],
-        dealerCards: [...state.dealerCards, ...getCards(state.deck, 2)],
+        playerCards: [...state.playerCards, ...payload.playerCards],
+        dealerCards: [...state.dealerCards, ...payload.dealerCards],
       };
     case SET_SCORE:
       return {
@@ -189,12 +187,12 @@ export default (state, action) => {
     case HIT:
       return {
         ...state,
-        playerCards: [...state.playerCards, ...getCards(state.deck, 1)],
+        playerCards: [...state.playerCards, ...payload],
       };
     case STAND:
       return {
         ...state,
-        dealerCards: [...state.dealerCards, ...getCards(state.deck, 1)],
+        dealerCards: [...state.playerCards, ...payload],
         stand: true,
       };
     case DOUBLE_DOWN:
@@ -202,7 +200,7 @@ export default (state, action) => {
         ...state,
         bet: state.bet * 2,
         credit: state.credit - state.bet * 2,
-        playerCards: [...state.playerCards, ...getCards(state.deck, 1)],
+        playerCards: [...state.playerCards, ...payload],
         stand: true,
       };
     case SET_PLAYER_SCORE:
