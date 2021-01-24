@@ -27,7 +27,6 @@ import AppReducer, {
   RESULT_DRAW,
 } from './AppReducer';
 import getCardsFromDeck from './../helpers/getCards';
-import getCardsSum from '../helpers/getCardsSum';
 
 export const initState = {
   gameStarted: false,
