@@ -9,6 +9,7 @@ import BetForm from './components/BetForm';
 import Loader from './components/Loader';
 import InfoModal from './components/InfoModal/index';
 import RoundHistory from './components/InfoPanel/RoundHistory';
+// import useUnload from './hooks/useUnload';
 
 const App = () => {
   const {
@@ -25,19 +26,18 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // const handleOnClose = (e) => {
-  //   e.preventDefault();
-  //   e.returnValue = '';
-  //   saveGame();
-  // };
+  /* This is the implementation of this functionality:
 
-  // useEffect(() => {
-  //   window.addEventListener('beforeunload', (e) => handleOnClose(e));
-  //   return () => {
-  //     window.removeEventListener('beforeunload', (e) => handleOnClose(e));
-  //   };
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  "The game saves when the tab/window is closed and a prompt appears to inform the player about this"
+
+  The problem which I had I can't find the approach in order to change default browser message. For now :)
+
+  useUnload((e) => {
+    e.preventDefault();
+    saveGame();
+    e.returnValue = 'Game was saved!';
+  });
+  */
 
   return (
     <>
