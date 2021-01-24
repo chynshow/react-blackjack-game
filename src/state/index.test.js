@@ -210,14 +210,18 @@ describe('test app reducer', () => {
   });
   it('test reducer with RESULT_DEALER_WON action', () => {
     const action = { type: RESULT_DEALER_WON };
-
-    const res = AppReducer({ ...initState, bet: 5 }, action);
+    const bet = 5;
+    const res = AppReducer(
+      { ...initState, bet, credit: initState.credit - bet },
+      action
+    );
 
     const output = {
       ...initState,
-      credit: initState.credit,
+      credit: initState.credit + initState.bet,
       bet: 5,
     };
+
     expect(res).toEqual(output);
   });
   it('test reducer with RESULT_DRAW action', () => {

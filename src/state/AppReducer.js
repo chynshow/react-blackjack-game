@@ -181,7 +181,7 @@ export default (state, action) => {
     case RESULT_DEALER_WON:
       return {
         ...state,
-        credit: state.credit,
+        credit: state.credit + state.bet,
       };
 
     case HIT:
