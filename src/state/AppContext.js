@@ -121,11 +121,14 @@ export const AppProvider = ({ children }) => {
   const resetRound = () => {
     if (state.gameRound > 4 || state.credit <= 0) {
       dispatch({ type: FINISH_GAME });
+      const gameOverMsg = `Game over ${
+        state.credit <= 0 ? 'you are out of money' : ''
+      } your score: ${state.credit}`;
       return dispatch({
         type: SHOW_INFO_MODAL,
         payload: {
           title: 'Finish Game!',
-          msg: `Your score ${state.credit}$`,
+          msg: gameOverMsg,
           cb: () => resetGame(),
           closeBtnTitle: 'New Game!',
         },
@@ -174,7 +177,7 @@ export const AppProvider = ({ children }) => {
         type: SHOW_INFO_MODAL,
         payload: {
           title: 'Finish Round!',
-          msg: 'You won! You got Blackjack.',
+          msg: 'You win! You got blackjack.',
           cb: () => resetRound(),
           closeBtnTitle: 'New Deal',
         },
@@ -187,7 +190,7 @@ export const AppProvider = ({ children }) => {
         type: SHOW_INFO_MODAL,
         payload: {
           title: 'Finish Round!',
-          msg: 'You lose! Dealer got Blackjack.',
+          msg: 'You lost. Dealer got blackjack',
           cb: () => resetRound(),
           closeBtnTitle: 'New Deal',
         },
@@ -213,7 +216,7 @@ export const AppProvider = ({ children }) => {
         type: SHOW_INFO_MODAL,
         payload: {
           title: 'Finish Round!',
-          msg: 'Dealer went over 21! The dealer you went.',
+          msg: 'Dealer went over 21! You win!',
           cb: () => resetRound(),
           closeBtnTitle: 'New Deal',
         },
