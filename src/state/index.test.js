@@ -211,15 +211,12 @@ describe('test app reducer', () => {
   it('test reducer with RESULT_DEALER_WON action', () => {
     const action = { type: RESULT_DEALER_WON };
     const bet = 5;
-    const res = AppReducer(
-      { ...initState, bet, credit: initState.credit - bet },
-      action
-    );
+    const res = AppReducer({ ...initState, bet }, action);
 
     const output = {
       ...initState,
-      credit: initState.credit + initState.bet,
-      bet: 5,
+      credit: initState.credit,
+      bet,
     };
 
     expect(res).toEqual(output);

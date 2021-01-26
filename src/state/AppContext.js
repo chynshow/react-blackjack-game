@@ -247,7 +247,10 @@ export const AppProvider = ({ children }) => {
       });
     }
 
-    if (state.gameRound > 4 && !state.roundStarted) {
+    if (
+      (state.gameRound > 4 && !state.roundStarted) ||
+      (state.credit <= 0 && !state.roundStarted)
+    ) {
       dispatch({ type: FINISH_GAME });
       const gameOverMsg = `Game over, your score: ${state.credit}$`;
       return dispatch({

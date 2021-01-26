@@ -175,10 +175,14 @@ export default (state, action) => {
         credit: state.credit + state.bet * 1.5,
       };
     case RESULT_DRAW:
-    case RESULT_DEALER_WON:
       return {
         ...state,
         credit: state.credit + state.bet,
+      };
+    case RESULT_DEALER_WON:
+      return {
+        ...state,
+        credit: state.credit,
       };
 
     case HIT:
