@@ -13,7 +13,7 @@ const InfoModal = () => {
     <>
       <div
         className={`${
-          infoModal?.isActive
+          infoModal.isActive
             ? 'c-info-modal c-info-modal--active'
             : 'c-info-modal'
         }`}

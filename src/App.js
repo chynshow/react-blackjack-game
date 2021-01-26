@@ -13,18 +13,21 @@ import RoundHistory from './components/InfoPanel/RoundHistory';
 
 const App = () => {
   const {
-    initApp,
+    getCards,
     // saveGame,
     playerBet,
     roundStarted,
     gameStarted,
     loading,
     roundHistory,
+    deck,
   } = useContext(AppContext);
   useEffect(() => {
-    initApp();
+    if (!deck.length) {
+      getCards();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [deck.length]);
 
   /* This is the implementation of this functionality:
 

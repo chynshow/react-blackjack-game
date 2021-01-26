@@ -62,7 +62,6 @@ export const AppProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem('state', JSON.stringify(state));
-    console.log(state);
   }, [state]);
 
   useEffect(() => {
@@ -106,8 +105,6 @@ export const AppProvider = ({ children }) => {
       dispatch({ type: GET_CARDS_FAIL });
     }
   };
-
-  const initApp = () => getCards();
 
   const startGame = () => dispatch({ type: START_GAME });
 
@@ -176,7 +173,7 @@ export const AppProvider = ({ children }) => {
         type: SHOW_INFO_MODAL,
         payload: {
           title: 'Finish Round!',
-          msg: 'You lost. Dealer got blackjack',
+          msg: 'You lost. Dealer got blackjack.',
           cb: () => resetRound(),
           closeBtnTitle: 'New Deal',
         },
@@ -324,9 +321,7 @@ export const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
-        initApp,
         getCards,
-        state,
         startGame,
         resetGame,
         saveGame,
@@ -339,6 +334,7 @@ export const AppProvider = ({ children }) => {
         doubleDownAction,
         dispatch,
         showGameScore,
+        deck: state.deck,
         stand: state.stand,
         playerCredit: state.credit,
         gameStarted: state.gameStarted,

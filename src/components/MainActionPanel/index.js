@@ -23,40 +23,34 @@ const MainActionPanel = () => {
         Start Game
       </button>
 
-      {gameStarted && (
-        <>
-          <button
-            className='c-btn c-main-action-panel__btn'
-            disabled={!gameStarted}
-            onClick={() => resetGame()}
-          >
-            Reset Game
-          </button>
-          {!gameScore.length <= 0 && (
-            <button
-              className='c-btn c-main-action-panel__btn'
-              disabled={gameScore.length <= 0}
-              onClick={() => showGameScore()}
-            >
-              Score
-            </button>
-          )}
-          <button
-            className='c-btn c-main-action-panel__btn'
-            onClick={() => saveGame()}
-          >
-            Save Game
-          </button>
-          {gameSave && (
-            <button
-              className='c-btn c-main-action-panel__btn'
-              onClick={() => loadGame()}
-            >
-              Load Game
-            </button>
-          )}
-        </>
-      )}
+      <button
+        className='c-btn c-main-action-panel__btn'
+        disabled={!gameStarted}
+        onClick={() => resetGame()}
+      >
+        Reset Game
+      </button>
+      <button
+        className='c-btn c-main-action-panel__btn'
+        disabled={gameScore.length <= 0 || !gameStarted}
+        onClick={() => showGameScore()}
+      >
+        Game Score
+      </button>
+      <button
+        className='c-btn c-main-action-panel__btn'
+        onClick={() => saveGame()}
+        disabled={!gameStarted}
+      >
+        Save Game
+      </button>
+      <button
+        className='c-btn c-main-action-panel__btn'
+        onClick={() => loadGame()}
+        disabled={!gameSave || !gameStarted}
+      >
+        Load Game
+      </button>
     </div>
   );
 };

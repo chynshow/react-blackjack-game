@@ -11,5 +11,33 @@ exports[`render MainActionPanel component 1`] = `
   >
     Start Game
   </button>
+  <button
+    className="c-btn c-main-action-panel__btn"
+    disabled={true}
+    onClick={[Function]}
+  >
+    Reset Game
+  </button>
+  <button
+    className="c-btn c-main-action-panel__btn"
+    disabled={true}
+    onClick={[Function]}
+  >
+    Game Score
+  </button>
+  <button
+    className="c-btn c-main-action-panel__btn"
+    disabled={true}
+    onClick={[Function]}
+  >
+    Save Game
+  </button>
+  <button
+    className="c-btn c-main-action-panel__btn"
+    disabled={true}
+    onClick={[Function]}
+  >
+    Load Game
+  </button>
 </div>
 `;
