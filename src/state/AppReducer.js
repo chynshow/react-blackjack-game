@@ -33,7 +33,7 @@ export const HIDE_INFO_MODAL = 'HIDE_INFO_MODAL';
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state, action) => {
   const { type, payload } = action;
-  // console.log(`Action type: ${type}`);
+  console.log(`Action type: ${type}`);
   switch (type) {
     case GET_CARDS_REQUEST:
       return {

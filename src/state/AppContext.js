@@ -67,7 +67,7 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     getResult(state.playerScore, state.dealerScore);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.playerScore, state.dealerScore, state.roundStarted]);
+  }, [state.playerScore, state.dealerScore]);
 
   const getCards = async (deck = 6) => {
     dispatch({ type: GET_CARDS_REQUEST });
