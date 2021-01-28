@@ -65,7 +65,6 @@ export const AppProvider = ({ children }) => {
   }, [state]);
 
   useEffect(() => {
-    if (!state.roundStarted) return;
     getResult(state.playerScore, state.dealerScore);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.playerScore, state.dealerScore, state.roundStarted]);
