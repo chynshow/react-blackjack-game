@@ -75,8 +75,7 @@ export const AppProvider = ({ children }) => {
       const response1 = await Axios.get(
         `https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=${deck}`
       );
-
-      if (response1.status !== 200) {
+      if (response1.status > 200) {
         dispatch({ type: GET_CARDS_FAIL });
         return dispatch({
           type: SHOW_INFO_MODAL,
@@ -90,7 +89,7 @@ export const AppProvider = ({ children }) => {
         `https://deckofcardsapi.com/api/deck/${response1.data.deck_id}/draw/?count=${response1.data.remaining}`
       );
 
-      if (response2.status !== 200) {
+      if (response2.status > 200) {
         dispatch({ type: GET_CARDS_FAIL });
         return dispatch({
           type: SHOW_INFO_MODAL,
@@ -252,11 +251,11 @@ export const AppProvider = ({ children }) => {
       (state.credit <= 0 && !state.roundStarted)
     ) {
       dispatch({ type: FINISH_GAME });
-      const gameOverMsg = `Game over, your score: ${state.credit}$`;
+      const gameOverMsg = `Your score: ${state.credit}$`;
       return dispatch({
         type: SHOW_INFO_MODAL,
         payload: {
-          title: 'Finish Game!',
+          title: 'Game Over!',
           msg: gameOverMsg,
           closeBtnTitle: 'Bak to Game!',
         },

@@ -16,21 +16,19 @@ const MainActionPanel = () => {
 
   return (
     <div className='c-main-action-panel'>
-      {gameRound < 4 && (
+      {!gameStarted && gameRound <= 0 && (
         <button
           className='c-btn c-main-action-panel__start-btn'
           onClick={() => startGame()}
-          disabled={gameStarted}
         >
           Start Game
         </button>
       )}
 
-      {gameRound > 4 && !gameStarted && (
+      {gameRound > 0 && !gameStarted && (
         <button
           className='c-btn c-main-action-panel__start-btn'
           onClick={() => resetGame()}
-          disabled={gameStarted}
         >
           New Game
         </button>
