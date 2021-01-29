@@ -258,8 +258,7 @@ export const AppProvider = ({ children }) => {
         payload: {
           title: 'Finish Game!',
           msg: gameOverMsg,
-          cb: () => resetGame(),
-          closeBtnTitle: 'New Game!',
+          closeBtnTitle: 'Bak to Game!',
         },
       });
     }

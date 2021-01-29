@@ -56,7 +56,6 @@ const App = () => {
             <RoundHistory roundHistory={roundHistory} />
             <GameTable />
           </div>
-
           {gameStarted && !roundStarted && playerBet <= 0 && <BetForm />}
           {playerBet > 0 && <ActionPanel />}
           <InfoModal />

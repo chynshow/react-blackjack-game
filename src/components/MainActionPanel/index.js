@@ -11,17 +11,30 @@ const MainActionPanel = () => {
     gameStarted,
     gameSave,
     gameScore,
+    gameRound,
   } = useContext(AppContext);
 
   return (
     <div className='c-main-action-panel'>
-      <button
-        className='c-btn c-main-action-panel__start-btn'
-        onClick={() => startGame()}
-        disabled={gameStarted}
-      >
-        Start Game
-      </button>
+      {gameRound < 4 && (
+        <button
+          className='c-btn c-main-action-panel__start-btn'
+          onClick={() => startGame()}
+          disabled={gameStarted}
+        >
+          Start Game
+        </button>
+      )}
+
+      {gameRound > 4 && !gameStarted && (
+        <button
+          className='c-btn c-main-action-panel__start-btn'
+          onClick={() => resetGame()}
+          disabled={gameStarted}
+        >
+          New Game
+        </button>
+      )}
 
       <button
         className='c-btn c-main-action-panel__btn'
