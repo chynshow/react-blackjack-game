@@ -257,7 +257,7 @@ export const AppProvider = ({ children }) => {
         payload: {
           title: 'Game Over!',
           msg: gameOverMsg,
-          closeBtnTitle: 'Game summary',
+          closeBtnTitle: 'Close',
         },
       });
     }
